@@ -57,22 +57,52 @@ namespace UPE_Excel_Formatter
                 oRng = (Excel.Range)oSheet.UsedRange;
                 totalColumns = oRng.Columns.Count;
                 totalRows = oRng.Rows.Count;
-                string[] headerTitles = new string[totalColumns+1];
-                string[,] spreadsheetData = new string[totalRows,totalColumns];
-                for (int i = 1; i < headerTitles.Length; i++)
+                //string[] headerTitles = new string[totalColumns+1];
+                List<CellObject> headerTitleList = new List<CellObject>();
+                List<CellObject> spreadsheetData = new List<CellObject>();
+                //string[,] spreadsheetData = new string[totalRows,totalColumns];
+                for (int c = 1; c < totalColumns; c++)
                 {
-                    headerTitles[i] = oSheet.Cells[1, i].Value.ToString();
+                    string value = oSheet.Cells[1, c].Value.ToString();
+                    CellObject cell = new CellObject(1, c, value);
+                    //headerTitles[i] = oSheet.Cells[1, i].Value.ToString();
+                    headerTitleList.Add(cell);
                 }
 
-                for (int i = 1; i < totalRows; i++)
+                for (int r = 2 ; r < totalRows ; r++)
                 {
-                    for (int p = 1; p < totalColumns; p++)
+                    for (int c = 1; c < totalColumns; c++)
                     {
+                        CellObject cellData = new CellObject();
+                        string value = "";
+                        if (oSheet.Cells[r, c].Value != null)
+                        {
+                            value = oSheet.Cells[r, c].Value.ToString();
+                        }
+                        else if (oSheet.Cells[r, c].Value == null)
+                        {
+                            value = "null";
+                        }
+                        else value = "null";
                         
-                        spreadsheetData[i, p] = oSheet.Cells[i, p].Value.ToString();
+                        CellObject cell = new CellObject(r, c, value);
+
+                        
+                        spreadsheetData.Add(cell);
                     }
+                    
                 }
-                firstNameComboBox.DataSource = headerTitles;
+
+                //for (int i = 1; i < totalRows; i++)
+                //{
+                //    for (int p = 1; p < totalColumns; p++)
+                //    {
+                        
+                //        spreadsheetData[i, p] = oSheet.Cells[i, p].Value.ToString();
+                //    }
+                //}
+                firstNameComboBox.DataSource = headerTitleList;
+                firstNameComboBox.DisplayMember = "Value";
 
 
                 //oRng.Font.FontStyle = "Garamond";

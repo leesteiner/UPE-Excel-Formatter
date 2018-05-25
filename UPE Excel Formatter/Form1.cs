@@ -10,11 +10,12 @@ namespace UPE_Excel_Formatter
 {
     public partial class Form1 : Form
     {
-        List<CellObject> headerTitleList = new List<CellObject>();
-        List<RowObject> spreadsheetData = new List<RowObject>();
-        List<int> neededColumns = new List<int>();
-        List<LabelAndBoxObject> comboBoxAndLabelList = new List<LabelAndBoxObject>();
-        String filename;
+        private List<CellObject> headerTitleList = new List<CellObject>();
+        private List<RowObject> spreadsheetData = new List<RowObject>();
+        private List<Tuple<int,string>> neededColumns = new List<Tuple<int,string>>();
+        private List<LabelAndBoxObject> comboBoxAndLabelList = new List<LabelAndBoxObject>();
+        private String filename;
+        
 
         public Form1()
         {
@@ -37,75 +38,42 @@ namespace UPE_Excel_Formatter
             int totalColumns = 0;
             int totalRows = 0;
 
-
-            Stream myStream = null;
+            #region Open Excel and Get Headers
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Filter = "Excel or CSV Files|*.xls;*.xlsx;*.xlsm;*.csv";
             openFileDialog1.Title = "Select an Excel file";
 
+            //If Open File Dialog succeeds, store result in string filename
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 filename = openFileDialog1.FileName;
 
-                //em.Open(filename);
                 //Start Excel and get Application object.
-
                 oXL = new Excel.Application();
-                oXL.Visible = false;
+
+                //Set this to false when on work computer, works fine in background unless there is a dialog popup
+                oXL.Visible = true;
                 oWB = oXL.Workbooks.Open(filename);
                 oSheet = (Excel._Worksheet)oWB.ActiveSheet;
+
+                //Get total used range and set total columns and rows
                 oRng = (Excel.Range)oSheet.UsedRange;
                 totalColumns = oRng.Columns.Count;
                 totalRows = oRng.Rows.Count;
-                //string[] headerTitles = new string[totalColumns+1];
-                
-                //string[,] spreadsheetData = new string[totalRows,totalColumns];
+
+                //For each column in Header (row 1), create cell object, pass in row 1, column num and value
+                //Add cell to headerTitleList
                 for (int c = 1; c < totalColumns + 1; c++)
                 {
                     string value = oSheet.Cells[1, c].Value.ToString();
                     CellObject cell = new CellObject(1, c, value);
-                    //headerTitles[i] = oSheet.Cells[1, i].Value.ToString();
                     headerTitleList.Add(cell);
                 }
 
-                //TODO: Reload below data after selectors are set. Access xl sheet twice
-                /*
-                 * //THIS CODE BELOW WORKS, USE AFTER ABOVE IS SET
-                for (int r = 2 ; r < totalRows ; r++)
-                {
-                    RowObject currentRow = new RowObject();
-                    currentRow.RowNumber = r;
-                    for (int c = 1; c < totalColumns; c++)
-                    {
-                        CellObject cellData = new CellObject();
-                        string value = "";
-                        if (oSheet.Cells[r, c].Value != null)
-                        {
-                            value = oSheet.Cells[r, c].Value.ToString();
-                        }
-                        else if (oSheet.Cells[r, c].Value == null)
-                        {
-                            value = "null";
-                        }
-                        else value = "null";
-                        
-                        CellObject cell = new CellObject(r, c, value);
+                //Add last cell to headerTitleList for user option in case match can't be made later
+                headerTitleList.Add(new CellObject(1, totalColumns + 2, "Add this row to sheet."));
 
-                        currentRow.Cells.Add(cell);
-                        
-                    }
-                    spreadsheetData.Add(currentRow);
-                    
-                }
-                */
-                //for (int i = 1; i < totalRows; i++)
-                //{
-                //    for (int p = 1; p < totalColumns; p++)
-                //    {
-
-                //        spreadsheetData[i, p] = oSheet.Cells[i, p].Value.ToString();
-                //    }
-                //}
+                //Release ComObjects and Close Excel
                 Marshal.ReleaseComObject(oRng);
                 Marshal.ReleaseComObject(oSheet);
                 oWB.Close();
@@ -113,87 +81,87 @@ namespace UPE_Excel_Formatter
                 oXL.Quit();
                 Marshal.ReleaseComObject(oXL);
 
+                #endregion
 
-
+                #region Bind Form Elements
+                //Bind comboboxes to list of header values, combine with label, search string, and corresponding header for final export, add to list
                 firstNameComboBox.DataSource = headerTitleList;
                 firstNameComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(firstNameComboBox, firstNameLabel, new List<string>() {"first"}));
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(firstNameComboBox, firstNameLabel, new List<string>() {"first"}, "First Name" ));
 
                 lastNameComboBox.BindingContext = new BindingContext();
                 lastNameComboBox.DataSource = headerTitleList;
                 lastNameComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(lastNameComboBox, lastNameLabel, new List<string>() { "last" }));
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(lastNameComboBox, lastNameLabel, new List<string>() { "last" }, "Last Name" ));
 
                 uniComboBox.BindingContext = new BindingContext();
                 uniComboBox.DataSource = headerTitleList;
                 uniComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(uniComboBox, uniLabel, new List<string>() { "uni" }));
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(uniComboBox, uniLabel, new List<string>() { "uni" }, "UNI" ));
 
                 emailComboBox.BindingContext = new BindingContext();
                 emailComboBox.DataSource = headerTitleList;
                 emailComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(emailComboBox, emailLabel, new List<string>() { "email" }));
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(emailComboBox, emailLabel, new List<string>() { "email" }, "Email Address" ));
 
                 namePrefixComboBox.BindingContext = new BindingContext();
                 namePrefixComboBox.DataSource = headerTitleList;
                 namePrefixComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(namePrefixComboBox, namePrefixLabel, new List<string>() { "prefix" }));
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(namePrefixComboBox, namePrefixLabel, new List<string>() { "prefix" }, "Name Prefix" ));
 
                 rsvpComboBox.BindingContext = new BindingContext();
                 rsvpComboBox.DataSource = headerTitleList;
                 rsvpComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(rsvpComboBox, rsvpLabel, new List<string>() { "rsvp" }));
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(rsvpComboBox, rsvpLabel, new List<string>() { "rsvp" }, "RSVP" ));
 
                 rsvpNoteComboBox.BindingContext = new BindingContext();
                 rsvpNoteComboBox.DataSource = headerTitleList;
                 rsvpNoteComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(rsvpNoteComboBox, rsvpNoteLabel, new List<string>() { "rsvp","note" }));
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(rsvpNoteComboBox, rsvpNoteLabel, new List<string>() { "rsvp","note" }, "RSVP Note" ));
 
                 dateOfReplyComboBox.BindingContext = new BindingContext();
                 dateOfReplyComboBox.DataSource = headerTitleList;
                 dateOfReplyComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(dateOfReplyComboBox, dateOfReplyLabel, new List<string>() { "date","reply" }));
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(dateOfReplyComboBox, dateOfReplyLabel, new List<string>() { "date","reply" }, "Date of Reply" ));
 
 
                 dietaryRestrictionsComboBox.BindingContext = new BindingContext();
                 dietaryRestrictionsComboBox.DataSource = headerTitleList;
                 dietaryRestrictionsComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(dietaryRestrictionsComboBox, dietaryRestrictionsLabel, new List<string>() { "dietary", "restrictions" }));
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(dietaryRestrictionsComboBox, dietaryRestrictionsLabel, new List<string>() { "dietary", "restrictions" }, "Dietary Restrictions" ));
+
+
+                //TODO: Is this duplication of date of reply??
 
                 dateCreatedComboBox.BindingContext = new BindingContext();
                 dateCreatedComboBox.DataSource = headerTitleList;
                 dateCreatedComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(dateCreatedComboBox, dateCreatedLabel, new List<string>() { "created" }));
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(dateCreatedComboBox, dateCreatedLabel, new List<string>() { "created" }, "Date Created" ));
 
+                #endregion
 
+                #region Match Headers to Form Element Selections
 
-
-                //TODO: Automatch comboboxes: As Below
-                //TODO: Last column getting cut off on import of column headers
-
+                //Set compare criteria here with any StringComparison enum
                 StringComparison comp = StringComparison.OrdinalIgnoreCase;
 
-
-
+                //Iterate through ComboBoxes in Form
                 foreach (LabelAndBoxObject l in comboBoxAndLabelList)
                 {
+                    //Set initial selected item to last in header list, which should be "Add this to spreadsheet"
+                    l.comboBox.SelectedItem = headerTitleList[headerTitleList.Count - 1];
+
                     bool stringMatched = false;
                     while (stringMatched == false)
                     {
+                           
+                        //Iterate through cells in HeaderTitle List
                         foreach (CellObject cell in headerTitleList)
                         {
-                            /*if (cell.Value.ToString() == l.label.Text)
-                            if (cell.Value.Contains(l.label.Text,comp))
-                            {
-                                l.comboBox.SelectedItem = l.comboBox.Items.IndexOf(cell);
-                                //??l.comboBox.SelectedItem = cell;
-                            }
 
-                            */
-
-
-                            //compare label text to list of strings;
-
+                            //Compare values of cell to list of strings defined in #Bind Form Elements using Contains() string extension, if match is found, set selected;
+                            
+                            //If there is more than one string (not scalable, only two currently)
                             if (l.searchStrings.Count > 1)
                             {
                                 if (cell.Value.ToString().Contains(l.searchStrings[0],comp) && cell.Value.ToString().Contains(l.searchStrings[1],comp) && stringMatched == false)
@@ -202,6 +170,8 @@ namespace UPE_Excel_Formatter
                                     stringMatched = true;
                                 }
                             }
+
+                            //If there is only one string
                             else if (l.searchStrings.Count == 1)
                             {
                                 if (cell.Value.ToString().Contains(l.searchStrings[0], comp) && stringMatched == false)
@@ -211,42 +181,19 @@ namespace UPE_Excel_Formatter
                                 }
                             }
 
-
-
-
                         }
+                        
+                        //TODO: can this be a break?
+                        //If no match found, exit loop
                         stringMatched = true;
 
                     }
-
-
-
                 }
 
 
-
+                #endregion
                 //oRng.Font.FontStyle = "Garamond";
                 //oRng = oSheet.UsedRange;
-
-
-                ////Start Excel and get Application object.
-                //using (ExcelManager em = new ExcelManager())
-                //{
-
-                //    //List<RowObject> allRows = new List<RowObject>();
-                //    //Change column count!
-                //    //int columnCount = 20;
-                //    //int rowCount = 40;
-                //    //for (int i=0;i<rowCount;i++)
-                //    //{
-                //    //    RowObject currentRow = new RowObject();
-                //    //    ArrayList rowArray = new ArrayList();
-                //    //    rowArray = em.GetRangeFormattedValues($"A{i}", $"AZ{i}");
-                //    //}
-                //}
-
-
-
                 //oXL = new Excel.Application();
                 //oXL.Visible = true;
                 //oWB = oXL.Workbooks.Open(filename);
@@ -261,9 +208,7 @@ namespace UPE_Excel_Formatter
         {
             foreach (LabelAndBoxObject l in comboBoxAndLabelList)
             {
-                neededColumns.Add(l.comboBox.SelectedIndex+1);
-
-                //TODO: Add label text to a separate list? Display list of headers that way?
+                neededColumns.Add(new Tuple<int,string>(l.comboBox.SelectedIndex+1,l.name));
             }
 
 
@@ -274,7 +219,7 @@ namespace UPE_Excel_Formatter
 
 
             oXL = new Excel.Application();
-            oXL.Visible = false;
+            oXL.Visible = true;
             oWB = oXL.Workbooks.Open(filename);
             oSheet = (Excel._Worksheet)oWB.ActiveSheet;
             oRng = (Excel.Range)oSheet.UsedRange;
@@ -285,58 +230,19 @@ namespace UPE_Excel_Formatter
 
             //TODO: Add working box so the user knows it's working
             //TODO: Sort data by: Type, 
-            //THIS CODE BELOW WORKS, USE AFTER ABOVE IS SET
+
             for (int r = 2; r < totalRows; r++)
             {
                 RowObject currentRow = new RowObject();
                 currentRow.RowNumber = r;
 
-                foreach (int c in neededColumns)
+                foreach (Tuple<int,string> c in neededColumns)
                 {
-                    CellObject cellData = new CellObject();
-                    //string value = "";
-                    var cellValue = (string)(oSheet.Cells[r, c] as Range).Text;
-                    //value = (string)oSheet.Cells[r, c].Value;
-                    //if (oSheet.Cells[r,c].Value != null)
-                    //{
-                    //    value = oSheet.Cells[r, c].Value.ToString();
-                    //}
-                    //else if (oSheet.Cells[r, c].Value == null)
-                    //{
-                    //    value = "null";
-                    //}
-                    //else value = "null";
-
-                    //CellObject cell = new CellObject(r, c, value);
-                    CellObject cell = new CellObject(r, c, cellValue);
-
+                    var cellValue = (string)(oSheet.Cells[r, c.Item1] as Range).Text;
+                    CellObject cell = new CellObject(r, c.Item1, cellValue);             
                     currentRow.Cells.Add(cell);
                 }
 
-
-                //for (int c = 1; c < totalColumns; c++)
-                //{
-                //    if (neededColumns.Contains(c))
-                //    {
-                //        CellObject cellData = new CellObject();
-                //        string value = "";
-                //        if (oSheet.Cells[r, c].Value != null)
-                //        {
-                //            value = oSheet.Cells[r, c].Value.ToString();
-                //        }
-                //        else if (oSheet.Cells[r, c].Value == null)
-                //        {
-                //            value = "null";
-                //        }
-                //        else value = "null";
-
-                //        CellObject cell = new CellObject(r, c, value);
-
-                //        currentRow.Cells.Add(cell);
-                //    }
-
-
-                //}
                 spreadsheetData.Add(currentRow);
 
             }
@@ -357,35 +263,12 @@ namespace UPE_Excel_Formatter
             oSheet = (Worksheet)oWB.Worksheets[1];
 
 
-
-
-
-
-
-
-
             int column = 1;
-            foreach (int i in neededColumns)
+
+            foreach (Tuple<int,string> i in neededColumns)
             {
-                oSheet.Cells[1, column++].Value = headerTitleList[i-1].Value;
+                oSheet.Cells[1, column++].Value = i.Item2;
             }
-            //foreach (CellObject c in headerTitleList)
-            //{
-            //    if (neededColumns.Contains(c.Column))
-            //    {
-            //        oSheet.Cells[1, column++].Value = c.Value;
-            //    }
-                
-            //}
-
-
-
-            
-
-
-
-
-
 
 
             foreach (RowObject r in spreadsheetData)
@@ -400,8 +283,17 @@ namespace UPE_Excel_Formatter
                 }
                 
             }
+
+
+            Marshal.ReleaseComObject(oRng);
+            Marshal.ReleaseComObject(oSheet);
+            Marshal.ReleaseComObject(oWB);
+            Marshal.ReleaseComObject(oXL);
         }
 
+        private void loadExcelSheetButton_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

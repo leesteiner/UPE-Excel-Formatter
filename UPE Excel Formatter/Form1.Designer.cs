@@ -40,6 +40,8 @@
             this.namePrefixLabel = new System.Windows.Forms.Label();
             this.namePrefixComboBox = new System.Windows.Forms.ComboBox();
             this.fieldMatchPanel = new System.Windows.Forms.Panel();
+            this.dateCreatedLabel = new System.Windows.Forms.Label();
+            this.dateCreatedComboBox = new System.Windows.Forms.ComboBox();
             this.dateOfReplyLabel = new System.Windows.Forms.Label();
             this.rsvpNoteComboBox = new System.Windows.Forms.ComboBox();
             this.rsvpNoteLabel = new System.Windows.Forms.Label();
@@ -49,8 +51,6 @@
             this.rsvpComboBox = new System.Windows.Forms.ComboBox();
             this.rsvpLabel = new System.Windows.Forms.Label();
             this.continueButton = new System.Windows.Forms.Button();
-            this.dateCreatedLabel = new System.Windows.Forms.Label();
-            this.dateCreatedComboBox = new System.Windows.Forms.ComboBox();
             this.fieldMatchPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -176,6 +176,23 @@
             this.fieldMatchPanel.Size = new System.Drawing.Size(752, 300);
             this.fieldMatchPanel.TabIndex = 11;
             // 
+            // dateCreatedLabel
+            // 
+            this.dateCreatedLabel.AutoSize = true;
+            this.dateCreatedLabel.Location = new System.Drawing.Point(400, 212);
+            this.dateCreatedLabel.Name = "dateCreatedLabel";
+            this.dateCreatedLabel.Size = new System.Drawing.Size(95, 13);
+            this.dateCreatedLabel.TabIndex = 20;
+            this.dateCreatedLabel.Text = "Date Created Field";
+            // 
+            // dateCreatedComboBox
+            // 
+            this.dateCreatedComboBox.FormattingEnabled = true;
+            this.dateCreatedComboBox.Location = new System.Drawing.Point(403, 228);
+            this.dateCreatedComboBox.Name = "dateCreatedComboBox";
+            this.dateCreatedComboBox.Size = new System.Drawing.Size(292, 21);
+            this.dateCreatedComboBox.TabIndex = 19;
+            // 
             // dateOfReplyLabel
             // 
             this.dateOfReplyLabel.AutoSize = true;
@@ -253,23 +270,6 @@
             this.continueButton.Text = "Continue";
             this.continueButton.UseVisualStyleBackColor = true;
             this.continueButton.Click += new System.EventHandler(this.continueButton_Click);
-            // 
-            // dateCreatedLabel
-            // 
-            this.dateCreatedLabel.AutoSize = true;
-            this.dateCreatedLabel.Location = new System.Drawing.Point(400, 212);
-            this.dateCreatedLabel.Name = "dateCreatedLabel";
-            this.dateCreatedLabel.Size = new System.Drawing.Size(95, 13);
-            this.dateCreatedLabel.TabIndex = 20;
-            this.dateCreatedLabel.Text = "Date Created Field";
-            // 
-            // dateCreatedComboBox
-            // 
-            this.dateCreatedComboBox.FormattingEnabled = true;
-            this.dateCreatedComboBox.Location = new System.Drawing.Point(403, 228);
-            this.dateCreatedComboBox.Name = "dateCreatedComboBox";
-            this.dateCreatedComboBox.Size = new System.Drawing.Size(292, 21);
-            this.dateCreatedComboBox.TabIndex = 19;
             // 
             // Form1
             // 

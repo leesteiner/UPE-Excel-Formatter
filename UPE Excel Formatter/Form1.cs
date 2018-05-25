@@ -60,7 +60,7 @@ namespace UPE_Excel_Formatter
                 //string[] headerTitles = new string[totalColumns+1];
                 
                 //string[,] spreadsheetData = new string[totalRows,totalColumns];
-                for (int c = 1; c < totalColumns; c++)
+                for (int c = 1; c < totalColumns + 1; c++)
                 {
                     string value = oSheet.Cells[1, c].Value.ToString();
                     CellObject cell = new CellObject(1, c, value);
@@ -139,11 +139,38 @@ namespace UPE_Excel_Formatter
                 namePrefixComboBox.DisplayMember = "Value";
                 comboBoxAndLabelList.Add(new LabelAndBoxObject(namePrefixComboBox, namePrefixLabel, new List<string>() { "prefix" }));
 
+                rsvpComboBox.BindingContext = new BindingContext();
+                rsvpComboBox.DataSource = headerTitleList;
+                rsvpComboBox.DisplayMember = "Value";
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(rsvpComboBox, rsvpLabel, new List<string>() { "rsvp" }));
+
+                rsvpNoteComboBox.BindingContext = new BindingContext();
+                rsvpNoteComboBox.DataSource = headerTitleList;
+                rsvpNoteComboBox.DisplayMember = "Value";
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(rsvpNoteComboBox, rsvpNoteLabel, new List<string>() { "rsvp","note" }));
+
+                dateOfReplyComboBox.BindingContext = new BindingContext();
+                dateOfReplyComboBox.DataSource = headerTitleList;
+                dateOfReplyComboBox.DisplayMember = "Value";
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(dateOfReplyComboBox, dateOfReplyLabel, new List<string>() { "date","reply" }));
+
+
+                dietaryRestrictionsComboBox.BindingContext = new BindingContext();
+                dietaryRestrictionsComboBox.DataSource = headerTitleList;
+                dietaryRestrictionsComboBox.DisplayMember = "Value";
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(dietaryRestrictionsComboBox, dietaryRestrictionsLabel, new List<string>() { "dietary", "restrictions" }));
+
+                dateCreatedComboBox.BindingContext = new BindingContext();
+                dateCreatedComboBox.DataSource = headerTitleList;
+                dateCreatedComboBox.DisplayMember = "Value";
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(dateCreatedComboBox, dateCreatedLabel, new List<string>() { "created" }));
 
 
 
 
                 //TODO: Automatch comboboxes: As Below
+                //TODO: Last column getting cut off on import of column headers
+
                 StringComparison comp = StringComparison.OrdinalIgnoreCase;
 
 
@@ -167,16 +194,24 @@ namespace UPE_Excel_Formatter
 
                             //compare label text to list of strings;
 
-                            foreach (string s in l.searchStrings)
+                            if (l.searchStrings.Count > 1)
                             {
-                                if (cell.Value.ToString().Contains(s, comp) && stringMatched == false)
+                                if (cell.Value.ToString().Contains(l.searchStrings[0],comp) && cell.Value.ToString().Contains(l.searchStrings[1],comp) && stringMatched == false)
                                 {
                                     l.comboBox.SelectedItem = cell;
                                     stringMatched = true;
                                 }
-
-
                             }
+                            else if (l.searchStrings.Count == 1)
+                            {
+                                if (cell.Value.ToString().Contains(l.searchStrings[0], comp) && stringMatched == false)
+                                {
+                                    l.comboBox.SelectedItem = cell;
+                                    stringMatched = true;
+                                }
+                            }
+
+
 
 
                         }
@@ -249,7 +284,7 @@ namespace UPE_Excel_Formatter
 
 
             //TODO: Add working box so the user knows it's working
-
+            //TODO: Sort data by: Type, 
             //THIS CODE BELOW WORKS, USE AFTER ABOVE IS SET
             for (int r = 2; r < totalRows; r++)
             {
@@ -259,8 +294,9 @@ namespace UPE_Excel_Formatter
                 foreach (int c in neededColumns)
                 {
                     CellObject cellData = new CellObject();
-                    string value = "";
-                    value = oSheet.Cells[r, c].Value;
+                    //string value = "";
+                    var cellValue = (string)(oSheet.Cells[r, c] as Range).Text;
+                    //value = (string)oSheet.Cells[r, c].Value;
                     //if (oSheet.Cells[r,c].Value != null)
                     //{
                     //    value = oSheet.Cells[r, c].Value.ToString();
@@ -271,7 +307,8 @@ namespace UPE_Excel_Formatter
                     //}
                     //else value = "null";
 
-                    CellObject cell = new CellObject(r, c, value);
+                    //CellObject cell = new CellObject(r, c, value);
+                    CellObject cell = new CellObject(r, c, cellValue);
 
                     currentRow.Cells.Add(cell);
                 }
@@ -364,5 +401,7 @@ namespace UPE_Excel_Formatter
                 
             }
         }
+
+
     }
 }

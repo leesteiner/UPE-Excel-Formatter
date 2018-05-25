@@ -34,6 +34,8 @@ namespace UPE_Excel_Formatter
             Excel._Workbook oWB;
             Excel._Worksheet oSheet;
             Excel.Range oRng;
+            int totalColumns = 0;
+            int totalRows = 0;
 
 
             Stream myStream = null;
@@ -45,22 +47,53 @@ namespace UPE_Excel_Formatter
             {
                 String filename = openFileDialog1.FileName;
 
-
+                //em.Open(filename);
                 //Start Excel and get Application object.
-                using (ExcelManager em = new ExcelManager())
+
+                oXL = new Excel.Application();
+                oXL.Visible = true;
+                oWB = oXL.Workbooks.Open(filename);
+                oSheet = (Excel._Worksheet)oWB.ActiveSheet;
+                oRng = (Excel.Range)oSheet.UsedRange;
+                totalColumns = oRng.Columns.Count;
+                totalRows = oRng.Rows.Count;
+                string[] headerTitles = new string[totalColumns+1];
+                string[,] spreadsheetData = new string[totalRows,totalColumns];
+                for (int i = 1; i < headerTitles.Length; i++)
                 {
-                    em.Open(filename);
-                    List<RowObject> allRows = new List<RowObject>();
-                    //Change column count!
-                    int columnCount = 20;
-                    int rowCount = 40;
-                    for (int i=0;i<rowCount;i++)
+                    headerTitles[i] = oSheet.Cells[1, i].Value.ToString();
+                }
+
+                for (int i = 1; i < totalRows; i++)
+                {
+                    for (int p = 1; p < totalColumns; p++)
                     {
-                        RowObject currentRow = new RowObject();
-                        ArrayList rowArray = new ArrayList();
-                        rowArray = em.GetRangeFormattedValues($"A{i}", $"AZ{i}");
+                        
+                        spreadsheetData[i, p] = oSheet.Cells[i, p].Value.ToString();
                     }
                 }
+                firstNameComboBox.DataSource = headerTitles;
+
+
+                //oRng.Font.FontStyle = "Garamond";
+                //oRng = oSheet.UsedRange;
+
+
+                ////Start Excel and get Application object.
+                //using (ExcelManager em = new ExcelManager())
+                //{
+
+                //    //List<RowObject> allRows = new List<RowObject>();
+                //    //Change column count!
+                //    //int columnCount = 20;
+                //    //int rowCount = 40;
+                //    //for (int i=0;i<rowCount;i++)
+                //    //{
+                //    //    RowObject currentRow = new RowObject();
+                //    //    ArrayList rowArray = new ArrayList();
+                //    //    rowArray = em.GetRangeFormattedValues($"A{i}", $"AZ{i}");
+                //    //}
+                //}
 
                 
 

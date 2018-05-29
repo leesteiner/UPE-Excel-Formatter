@@ -7,11 +7,19 @@ using System.Runtime.InteropServices;
 using Microsoft.Office.Interop.Excel;
 using System.Threading;
 using System.Linq;
+using Jacksonsoft;
 
-namespace UPE_Excel_Formatter
+namespace UPE_Excel_Formatter 
 {
-    public partial class UpeGuestListExportUtility : Form
+
+    public partial class UpeGuestListExportUtility : Form 
     {
+        private StringComparison comp = StringComparison.OrdinalIgnoreCase;
+        private Excel.Application oXL;
+        private Excel._Workbook oWB;
+        private Excel._Worksheet oSheet;
+        private Excel.Range oRng;
+        private Excel.Range titleRange;
         private List<CellObject> headerTitleList = new List<CellObject>();
         private List<RowObject> spreadsheetData = new List<RowObject>();
         private List<Tuple<int,string>> neededColumns = new List<Tuple<int,string>>();
@@ -22,36 +30,21 @@ namespace UPE_Excel_Formatter
         public UpeGuestListExportUtility()
         {
             InitializeComponent();
-            RenameThisMethod();
         }
 
-        private void RenameThisMethod()
+        void importSpreadSheet()
         {
-
-        }
-
-        private void continueButton_Click(object sender, EventArgs e)
-        {
-            //new Thread(() => new LoadingScreen().ShowDialog()).Start();
-
-
             foreach (LabelAndBoxObject l in comboBoxAndLabelList)
             {
-                neededColumns.Add(new Tuple<int,string>(l.comboBox.SelectedIndex+1,l.name));
+                neededColumns.Add(new Tuple<int, string>(l.comboBox.SelectedIndex + 1, l.name));
             }
 
 
             //TODO: Use vars?
-            StringComparison comp = StringComparison.OrdinalIgnoreCase;
-            Excel.Application oXL;
-            Excel._Workbook oWB;
-            Excel._Worksheet oSheet;
-            Excel.Range oRng;
-            Excel.Range titleRange;
 
 
-            oXL = new Microsoft.Office.Interop.Excel.Application();
-            oXL.Visible = false;
+
+
             var oWBS = oXL.Workbooks;
             oWB = oWBS.Open(filename);
             oSheet = (Excel._Worksheet)oWB.ActiveSheet;
@@ -71,18 +64,25 @@ namespace UPE_Excel_Formatter
                 RowObject currentRow = new RowObject();
                 currentRow.RowNumber = r;
 
-                foreach (Tuple<int,string> c in neededColumns)
+                foreach (Tuple<int, string> c in neededColumns)
                 {
-                    
+
                     //DateTime cellDate;
-                    if (c.Item2.Contains("date",comp))
+                    if (c.Item2.Contains("date", comp))
                     {
                         //TODO: Handle Null Exception
-
+                        string cellString = "";
                         //TimeSpan dateFromExcel = new TimeSpan(Convert.ToInt32((oSheet.cells[r, c.Item1] as Range)));
-                        string cellString = (oSheet.Cells[r,c.Item1] as Range).Value2.ToString();
-                        double date = double.Parse(cellString);
-                        cellString = DateTime.FromOADate(date).ToString("MM/dd/yyyy");
+                        if ((oSheet.Cells[r, c.Item1] as Range).Value2 != null)
+                        {
+                            cellString = (oSheet.Cells[r, c.Item1] as Range).Value2.ToString();
+                            double date = double.Parse(cellString);
+                            cellString = DateTime.FromOADate(date).ToString("MM/dd/yyyy");
+                        }
+                        else
+                        {
+                            cellString = "";
+                        }
                         //cellDate = DateTime.FromOADate(d);
                         CellObject cell = new CellObject(r, c.Item1, cellString);
                         currentRow.Cells.Add(cell);
@@ -94,8 +94,8 @@ namespace UPE_Excel_Formatter
                         CellObject cell = new CellObject(r, c.Item1, cellString);
                         currentRow.Cells.Add(cell);
                     }
-                    
-                    
+
+
                 }
 
                 spreadsheetData.Add(currentRow);
@@ -113,33 +113,26 @@ namespace UPE_Excel_Formatter
             GC.Collect();
             GC.WaitForPendingFinalizers();
 
-        
-            Marshal.FinalReleaseComObject(oRng);
-            
-            Marshal.FinalReleaseComObject(oSheet);
+
+
             oWB.Close(Type.Missing, Type.Missing, Type.Missing);
             oWBS.Close();
+
+
+        }
+
+        void exportSpreadsheet()
+        {
             
-            Marshal.FinalReleaseComObject(oWB);
-            Marshal.FinalReleaseComObject(oWBS);
-            oXL.Quit();
-            Marshal.FinalReleaseComObject(oXL);
-
-
-            //TODO: SORT DATA HERE
-
-
-
-            oXL = new Excel.Application();
-            oXL.Visible = true;
-            oWBS = oXL.Workbooks;
-            oWB = oWBS.Add(XlWBATemplate.xlWBATWorksheet);
-            oSheet = (Worksheet)oWB.Worksheets[1];
+            var oWBS = oXL.Workbooks;
+            oWB = oWBS.Add();
+            oSheet = (Excel._Worksheet)oWB.ActiveSheet;
+            oXL.Visible = false;
 
 
             int column = 1;
 
-            foreach (Tuple<int,string> i in neededColumns)
+            foreach (Tuple<int, string> i in neededColumns)
             {
                 oSheet.Cells[1, column++].Value = i.Item2;
             }
@@ -153,15 +146,15 @@ namespace UPE_Excel_Formatter
 
                     oSheet.Cells[c.Row, currentColumn].Value = c.Value;
                     currentColumn++;
-                    
+
                 }
-                
+
             }
 
 
             oRng = (Excel.Range)oSheet.UsedRange;
-            totalColumns = oRng.Columns.Count;
-            totalRows = oRng.Rows.Count;
+            int totalColumns = oRng.Columns.Count;
+            int totalRows = oRng.Rows.Count;
             Excel.Range titleRangeStart = oSheet.Cells[1, 1];
             Excel.Range titleRangeEnd = oSheet.Cells[1, totalColumns];
             Excel.Range bodyRangeStart = oSheet.Cells[2, totalColumns];
@@ -176,16 +169,16 @@ namespace UPE_Excel_Formatter
             titleRange.Font.Bold = true;
             titleRange.Font.Size = 12;
             oRng.Columns.AutoFit();
-            
-            for (int i=1; i< totalColumns;i++)
+
+            for (int i = 1; i < totalColumns; i++)
             {
                 oRng.Columns[i].AutoFit();
 
-                if (oRng.Columns[i].ColumnWidth > 25 )
+                if (oRng.Columns[i].ColumnWidth > 25)
                 {
-                    oRng.Columns[1].ColumnWidth = 25;
+                    oRng.Columns[i].ColumnWidth = 25;
                 }
-                
+
             }
 
             dynamic bodyRange = oSheet.get_Range(bodyRangeStart, bodyRangeEnd);
@@ -201,7 +194,7 @@ namespace UPE_Excel_Formatter
             oRng.Application.ActiveWindow.FreezePanes = true;
             titleRange.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             titleRange.Borders.Color = Excel.XlRgbColor.rgbBlack;
-            titleRange.Borders.Weight = Excel.XlBorderWeight.xlThick;
+            titleRange.Borders.Weight = Excel.XlBorderWeight.xlMedium;
 
             //titleRange.Borders[Excel.XlBordersIndex.xlEdgeTop].LineStyle = Excel.XlLineStyle.xlContinuous;
             //titleRange.Borders[Excel.XlBordersIndex.xlEdgeBottom].LineStyle = Excel.XlLineStyle.xlContinuous;
@@ -210,6 +203,10 @@ namespace UPE_Excel_Formatter
             titleRange.AutoFilter(1, Type.Missing, Excel.XlAutoFilterOperator.xlAnd, Type.Missing, true);
 
 
+            //Get Last cell in range
+            string address = oRng.get_Address();
+            string[] addressCells = address.Split(new char[] { ':' });
+            string endCell = addressCells[1].Replace("$", "");
 
             //titleRange.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             //titleRange.Borders.Weight = Excel.XlBorderWeight.xlThin;
@@ -219,18 +216,24 @@ namespace UPE_Excel_Formatter
             //titleRange.Borders = Excel.XlBordersIndex.xlEdgeTop;
             var printSettings = oSheet.PageSetup;
             printSettings.Orientation = Excel.XlPageOrientation.xlLandscape;
-            printSettings.PrintArea = "A1:" + oRng.SpecialCells(XlCellType.xlCellTypeLastCell);
+            printSettings.PrintArea = "A1:" + endCell;
+            printSettings.Zoom = false;
             printSettings.FitToPagesWide = 1;
-            printSettings.BottomMargin = 0.5;
-            printSettings.TopMargin = 0.5;
-            printSettings.LeftMargin = 0.5;
-            printSettings.RightMargin = 0.5;
-            printSettings.HeaderMargin = 0.5;
-            printSettings.FooterMargin = 0.5;
+            printSettings.FitToPagesTall = false;
+            printSettings.BottomMargin = oXL.InchesToPoints(0.75);
+            printSettings.TopMargin = oXL.InchesToPoints(0.75);
+            printSettings.LeftMargin = oXL.InchesToPoints(0.25);
+            printSettings.RightMargin = oXL.InchesToPoints(0.25);
 
 
+            //Header and Footer data here
+            printSettings.CenterHeader = "&\"Garamond\"&B&24&K000000&F, as of &D";
+            printSettings.RightFooter = "&\"Garamond\"&11&K000000&P of &N";
+            printSettings.HeaderMargin = oXL.InchesToPoints(0.3);
+            printSettings.FooterMargin = oXL.InchesToPoints(0.3);
 
 
+            oXL.Visible = true;
 
             GC.Collect();
             GC.WaitForPendingFinalizers();
@@ -254,10 +257,41 @@ namespace UPE_Excel_Formatter
             //load.Close();
             
         }
-
-        private void loadExcelSheetButton_Click(object sender, EventArgs e)
+        void importAndExportSpreadSheet()
         {
-            Excel.Application oXL;
+            //using (LoadingScreen loadScreen = new LoadingScreen(importAndExportSpreadSheet))
+            //{
+            //    loadScreen.ShowDialog(this);
+            //}
+
+            //new Thread(() => new LoadingScreen().ShowDialog()).Start();
+
+
+            
+
+            //TODO: SORT DATA HERE
+
+
+
+            
+        }
+        
+        private void continueButton_Click(object sender, EventArgs e)
+        {
+            //LoadingScreen.ShowLoadingScreen();
+            //importAndExportSpreadSheet();
+            //LoadingScreen.CloseForm();
+            object result = Jacksonsoft.WaitWindow.Show(this.WorkerMethod, "Writing new excel sheet...");
+
+            MessageBox.Show(result.ToString());
+            System.Windows.Forms.Application.Exit();
+
+        }
+
+        
+        void loadExcelSheet()
+        {
+
             Excel._Workbook oWB;
             Excel._Worksheet oSheet;
             Excel.Range oRng;
@@ -276,9 +310,10 @@ namespace UPE_Excel_Formatter
 
                 //Start Excel and get Application object.
                 oXL = new Excel.Application();
+                oXL.Visible = false;
+
 
                 //Set this to false when on work computer, works fine in background unless there is a dialog popup
-                oXL.Visible = false;
                 var oWBS = oXL.Workbooks;
                 oWB = oWBS.Open(filename);
                 oSheet = (Excel._Worksheet)oWB.ActiveSheet;
@@ -288,7 +323,12 @@ namespace UPE_Excel_Formatter
                 totalColumns = oRng.Columns.Count;
                 totalRows = oRng.Rows.Count;
 
-                LoadingScreen.ShowLoadingScreen();
+                //LoadingScreen loadScreen = new LoadingScreen();
+                //loadScreen.Show();
+                //System.Windows.Forms.Application.DoEvents();
+
+
+                //LoadingScreen.ShowLoadingScreen();
                 //For each column in Header (row 1), create cell object, pass in row 1, column num and value
                 //Add cell to headerTitleList
                 for (int c = 1; c < totalColumns + 1; c++)
@@ -315,9 +355,6 @@ namespace UPE_Excel_Formatter
                 Marshal.FinalReleaseComObject(oWB);
                 Marshal.FinalReleaseComObject(oWBS);
                 oWB = null;
-                
-                oXL.Quit();
-                Marshal.FinalReleaseComObject(oXL);
 
                 #endregion
 
@@ -345,7 +382,7 @@ namespace UPE_Excel_Formatter
                 guestCountComboBox.BindingContext = new BindingContext();
                 guestCountComboBox.DataSource = headerTitleList;
                 guestCountComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(guestCountComboBox, guestCountLabel, new List<string>() {}, "Guest Count"));
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(guestCountComboBox, guestCountLabel, new List<string>() { }, "Guest Count"));
 
                 rsvpComboBox.BindingContext = new BindingContext();
                 rsvpComboBox.DataSource = headerTitleList;
@@ -386,7 +423,7 @@ namespace UPE_Excel_Formatter
 
 
 
-                
+
 
 
                 //TODO: Is this duplication of date of reply??
@@ -460,8 +497,73 @@ namespace UPE_Excel_Formatter
                 //oRng.Font.FontStyle = "Garamond";
                 //oRng = oSheet.UsedRange;
 
-                LoadingScreen.CloseForm();
+                //loadScreen.Hide();
+            }
+
+        }
+        private void loadExcelSheetButton_Click(object sender, EventArgs e)
+        {
+            
+
+
+            loadExcelSheet();
+
+        }
+
+        private void WorkerMethod(object sender, Jacksonsoft.WaitWindowEventArgs e)
+        {
+            
+            
+            //if (e.Arguments.Count > 0)
+            //{
+            //    e.Result = e.Arguments[0].ToString();
+            //}
+            //else
+            //{
+            //    e.Result = "New sheet completed.";
+            //}
+
+            //if (InvokeRequired)
+            //{
+            //    Invoke((MethodInvoker)delegate { WorkerMethod(sender, e); });
+            //    return;
+            //}
+            //// this code will run on main (UI) thread 
+            //importAndExportSpreadSheet();
+
+            
+            int progress = 0;
+            //	Do something
+            while (progress < 100)
+            {
+
+                if (InvokeRequired)
+                {
+                    Invoke((MethodInvoker)delegate { WorkerMethod(sender, e); });
+                    return;
+                }
+                // this code will run on main (UI) thread 
+                importSpreadSheet();
+                progress = 50;
+                exportSpreadsheet();
+                progress = 100;
+
+                //	Update the wait window message
+                e.Window.Message = string.Format("Please wait ... {0}%", progress.ToString().PadLeft(3));
+            }
+
+            //	Use the arguments sent in
+            if (e.Arguments.Count > 0)
+            {
+                //	Set the result to return
+                e.Result = e.Arguments[0].ToString();
+            }
+            else
+            {
+                //	Set the result to return
+                e.Result = "New Sheet completed.";
             }
         }
+
     }
 }

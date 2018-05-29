@@ -40,6 +40,8 @@
             this.namePrefixLabel = new System.Windows.Forms.Label();
             this.namePrefixComboBox = new System.Windows.Forms.ComboBox();
             this.fieldMatchPanel = new System.Windows.Forms.Panel();
+            this.guestCountLabel = new System.Windows.Forms.Label();
+            this.guestCountComboBox = new System.Windows.Forms.ComboBox();
             this.dateCreatedLabel = new System.Windows.Forms.Label();
             this.dateCreatedComboBox = new System.Windows.Forms.ComboBox();
             this.dateOfReplyLabel = new System.Windows.Forms.Label();
@@ -53,8 +55,10 @@
             this.continueButton = new System.Windows.Forms.Button();
             this.upeGuestlistTitleLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.guestCountLabel = new System.Windows.Forms.Label();
-            this.guestCountComboBox = new System.Windows.Forms.ComboBox();
+            this.secondSortLabel = new System.Windows.Forms.Label();
+            this.firstSortComboBox = new System.Windows.Forms.ComboBox();
+            this.firstSortLabel = new System.Windows.Forms.Label();
+            this.secondSortComboBox = new System.Windows.Forms.ComboBox();
             this.fieldMatchPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -88,9 +92,9 @@
             this.firstNameLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
             this.firstNameLabel.Location = new System.Drawing.Point(16, 10);
             this.firstNameLabel.Name = "firstNameLabel";
-            this.firstNameLabel.Size = new System.Drawing.Size(123, 21);
+            this.firstNameLabel.Size = new System.Drawing.Size(86, 21);
             this.firstNameLabel.TabIndex = 2;
-            this.firstNameLabel.Text = "First Name Field";
+            this.firstNameLabel.Text = "First Name";
             // 
             // lastNameLabel
             // 
@@ -99,9 +103,9 @@
             this.lastNameLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
             this.lastNameLabel.Location = new System.Drawing.Point(14, 86);
             this.lastNameLabel.Name = "lastNameLabel";
-            this.lastNameLabel.Size = new System.Drawing.Size(121, 21);
+            this.lastNameLabel.Size = new System.Drawing.Size(84, 21);
             this.lastNameLabel.TabIndex = 4;
-            this.lastNameLabel.Text = "Last Name Field";
+            this.lastNameLabel.Text = "Last Name";
             // 
             // lastNameComboBox
             // 
@@ -119,9 +123,9 @@
             this.uniLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
             this.uniLabel.Location = new System.Drawing.Point(16, 238);
             this.uniLabel.Name = "uniLabel";
-            this.uniLabel.Size = new System.Drawing.Size(74, 21);
+            this.uniLabel.Size = new System.Drawing.Size(37, 21);
             this.uniLabel.TabIndex = 6;
-            this.uniLabel.Text = "UNI Field";
+            this.uniLabel.Text = "UNI";
             // 
             // uniComboBox
             // 
@@ -139,9 +143,9 @@
             this.emailLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
             this.emailLabel.Location = new System.Drawing.Point(14, 162);
             this.emailLabel.Name = "emailLabel";
-            this.emailLabel.Size = new System.Drawing.Size(85, 21);
+            this.emailLabel.Size = new System.Drawing.Size(48, 21);
             this.emailLabel.TabIndex = 8;
-            this.emailLabel.Text = "Email Field";
+            this.emailLabel.Text = "Email";
             // 
             // emailComboBox
             // 
@@ -159,9 +163,9 @@
             this.namePrefixLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
             this.namePrefixLabel.Location = new System.Drawing.Point(16, 314);
             this.namePrefixLabel.Name = "namePrefixLabel";
-            this.namePrefixLabel.Size = new System.Drawing.Size(132, 21);
+            this.namePrefixLabel.Size = new System.Drawing.Size(95, 21);
             this.namePrefixLabel.TabIndex = 10;
-            this.namePrefixLabel.Text = "Name Prefix Field";
+            this.namePrefixLabel.Text = "Name Prefix";
             // 
             // namePrefixComboBox
             // 
@@ -174,8 +178,6 @@
             // 
             // fieldMatchPanel
             // 
-            this.fieldMatchPanel.Controls.Add(this.guestCountLabel);
-            this.fieldMatchPanel.Controls.Add(this.guestCountComboBox);
             this.fieldMatchPanel.Controls.Add(this.dateCreatedLabel);
             this.fieldMatchPanel.Controls.Add(this.dateCreatedComboBox);
             this.fieldMatchPanel.Controls.Add(this.dateOfReplyLabel);
@@ -201,6 +203,28 @@
             this.fieldMatchPanel.Size = new System.Drawing.Size(824, 391);
             this.fieldMatchPanel.TabIndex = 11;
             // 
+            // guestCountLabel
+            // 
+            this.guestCountLabel.AutoSize = true;
+            this.guestCountLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guestCountLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
+            this.guestCountLabel.Location = new System.Drawing.Point(12, 560);
+            this.guestCountLabel.Name = "guestCountLabel";
+            this.guestCountLabel.Size = new System.Drawing.Size(96, 21);
+            this.guestCountLabel.TabIndex = 22;
+            this.guestCountLabel.Text = "Guest Count";
+            this.guestCountLabel.Visible = false;
+            // 
+            // guestCountComboBox
+            // 
+            this.guestCountComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guestCountComboBox.FormattingEnabled = true;
+            this.guestCountComboBox.Location = new System.Drawing.Point(12, 584);
+            this.guestCountComboBox.Name = "guestCountComboBox";
+            this.guestCountComboBox.Size = new System.Drawing.Size(102, 29);
+            this.guestCountComboBox.TabIndex = 21;
+            this.guestCountComboBox.Visible = false;
+            // 
             // dateCreatedLabel
             // 
             this.dateCreatedLabel.AutoSize = true;
@@ -208,9 +232,9 @@
             this.dateCreatedLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
             this.dateCreatedLabel.Location = new System.Drawing.Point(406, 314);
             this.dateCreatedLabel.Name = "dateCreatedLabel";
-            this.dateCreatedLabel.Size = new System.Drawing.Size(137, 21);
+            this.dateCreatedLabel.Size = new System.Drawing.Size(100, 21);
             this.dateCreatedLabel.TabIndex = 20;
-            this.dateCreatedLabel.Text = "Date Created Field";
+            this.dateCreatedLabel.Text = "Date Created";
             // 
             // dateCreatedComboBox
             // 
@@ -228,9 +252,9 @@
             this.dateOfReplyLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
             this.dateOfReplyLabel.Location = new System.Drawing.Point(402, 162);
             this.dateOfReplyLabel.Name = "dateOfReplyLabel";
-            this.dateOfReplyLabel.Size = new System.Drawing.Size(140, 21);
+            this.dateOfReplyLabel.Size = new System.Drawing.Size(103, 21);
             this.dateOfReplyLabel.TabIndex = 14;
-            this.dateOfReplyLabel.Text = "Date of Reply Field";
+            this.dateOfReplyLabel.Text = "Date of Reply";
             // 
             // rsvpNoteComboBox
             // 
@@ -248,9 +272,9 @@
             this.rsvpNoteLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
             this.rsvpNoteLabel.Location = new System.Drawing.Point(406, 86);
             this.rsvpNoteLabel.Name = "rsvpNoteLabel";
-            this.rsvpNoteLabel.Size = new System.Drawing.Size(123, 21);
+            this.rsvpNoteLabel.Size = new System.Drawing.Size(86, 21);
             this.rsvpNoteLabel.TabIndex = 12;
-            this.rsvpNoteLabel.Text = "RSVP Note Field";
+            this.rsvpNoteLabel.Text = "RSVP Note";
             // 
             // dietaryRestrictionsLabel
             // 
@@ -259,9 +283,9 @@
             this.dietaryRestrictionsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
             this.dietaryRestrictionsLabel.Location = new System.Drawing.Point(402, 238);
             this.dietaryRestrictionsLabel.Name = "dietaryRestrictionsLabel";
-            this.dietaryRestrictionsLabel.Size = new System.Drawing.Size(182, 21);
+            this.dietaryRestrictionsLabel.Size = new System.Drawing.Size(145, 21);
             this.dietaryRestrictionsLabel.TabIndex = 18;
-            this.dietaryRestrictionsLabel.Text = "Dietary Restrictions Field";
+            this.dietaryRestrictionsLabel.Text = "Dietary Restrictions";
             // 
             // dateOfReplyComboBox
             // 
@@ -297,9 +321,9 @@
             this.rsvpLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
             this.rsvpLabel.Location = new System.Drawing.Point(406, 10);
             this.rsvpLabel.Name = "rsvpLabel";
-            this.rsvpLabel.Size = new System.Drawing.Size(85, 21);
+            this.rsvpLabel.Size = new System.Drawing.Size(48, 21);
             this.rsvpLabel.TabIndex = 16;
-            this.rsvpLabel.Text = "RSVP Field";
+            this.rsvpLabel.Text = "RSVP";
             // 
             // continueButton
             // 
@@ -322,7 +346,7 @@
             this.upeGuestlistTitleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
             this.upeGuestlistTitleLabel.Location = new System.Drawing.Point(433, 12);
             this.upeGuestlistTitleLabel.Name = "upeGuestlistTitleLabel";
-            this.upeGuestlistTitleLabel.Size = new System.Drawing.Size(325, 32);
+            this.upeGuestlistTitleLabel.Size = new System.Drawing.Size(324, 32);
             this.upeGuestlistTitleLabel.TabIndex = 12;
             this.upeGuestlistTitleLabel.Text = "UPE Guestlist Export Utility";
             // 
@@ -335,35 +359,59 @@
             this.panel1.Size = new System.Drawing.Size(122, 96);
             this.panel1.TabIndex = 13;
             // 
-            // guestCountLabel
+            // secondSortLabel
             // 
-            this.guestCountLabel.AutoSize = true;
-            this.guestCountLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guestCountLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
-            this.guestCountLabel.Location = new System.Drawing.Point(277, 203);
-            this.guestCountLabel.Name = "guestCountLabel";
-            this.guestCountLabel.Size = new System.Drawing.Size(96, 21);
-            this.guestCountLabel.TabIndex = 22;
-            this.guestCountLabel.Text = "Guest Count";
-            this.guestCountLabel.Visible = false;
+            this.secondSortLabel.AutoSize = true;
+            this.secondSortLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.secondSortLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
+            this.secondSortLabel.Location = new System.Drawing.Point(889, 241);
+            this.secondSortLabel.Name = "secondSortLabel";
+            this.secondSortLabel.Size = new System.Drawing.Size(176, 21);
+            this.secondSortLabel.TabIndex = 24;
+            this.secondSortLabel.Text = "Sort by this field second";
             // 
-            // guestCountComboBox
+            // firstSortComboBox
             // 
-            this.guestCountComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guestCountComboBox.FormattingEnabled = true;
-            this.guestCountComboBox.Location = new System.Drawing.Point(277, 227);
-            this.guestCountComboBox.Name = "guestCountComboBox";
-            this.guestCountComboBox.Size = new System.Drawing.Size(351, 29);
-            this.guestCountComboBox.TabIndex = 21;
-            this.guestCountComboBox.Visible = false;
+            this.firstSortComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.firstSortComboBox.FormattingEnabled = true;
+            this.firstSortComboBox.Location = new System.Drawing.Point(893, 189);
+            this.firstSortComboBox.Name = "firstSortComboBox";
+            this.firstSortComboBox.Size = new System.Drawing.Size(142, 29);
+            this.firstSortComboBox.TabIndex = 21;
+            // 
+            // firstSortLabel
+            // 
+            this.firstSortLabel.AutoSize = true;
+            this.firstSortLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.firstSortLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
+            this.firstSortLabel.Location = new System.Drawing.Point(891, 165);
+            this.firstSortLabel.Name = "firstSortLabel";
+            this.firstSortLabel.Size = new System.Drawing.Size(154, 21);
+            this.firstSortLabel.TabIndex = 22;
+            this.firstSortLabel.Text = "Sort by this field first";
+            // 
+            // secondSortComboBox
+            // 
+            this.secondSortComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.secondSortComboBox.FormattingEnabled = true;
+            this.secondSortComboBox.Location = new System.Drawing.Point(893, 265);
+            this.secondSortComboBox.Name = "secondSortComboBox";
+            this.secondSortComboBox.Size = new System.Drawing.Size(142, 29);
+            this.secondSortComboBox.TabIndex = 23;
             // 
             // UpeGuestListExportUtility
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(898, 629);
+            this.ClientSize = new System.Drawing.Size(1129, 629);
+            this.Controls.Add(this.secondSortLabel);
+            this.Controls.Add(this.guestCountLabel);
+            this.Controls.Add(this.firstSortComboBox);
+            this.Controls.Add(this.firstSortLabel);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.secondSortComboBox);
+            this.Controls.Add(this.guestCountComboBox);
             this.Controls.Add(this.upeGuestlistTitleLabel);
             this.Controls.Add(this.continueButton);
             this.Controls.Add(this.fieldMatchPanel);
@@ -406,6 +454,10 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label guestCountLabel;
         private System.Windows.Forms.ComboBox guestCountComboBox;
+        private System.Windows.Forms.Label secondSortLabel;
+        private System.Windows.Forms.ComboBox firstSortComboBox;
+        private System.Windows.Forms.Label firstSortLabel;
+        private System.Windows.Forms.ComboBox secondSortComboBox;
     }
 }
 

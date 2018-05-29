@@ -12,6 +12,12 @@ using Jacksonsoft;
 namespace UPE_Excel_Formatter 
 {
 
+    //TODO: Toggle boolean switch on RSVP Column Change
+    //      add value to list of ints (insert rows)
+    //      after sheet is formatted entirely, add rows (last rows first so they line up)
+    //      make font same as title rows, merge cells
+
+
     public partial class UpeGuestListExportUtility : Form 
     {
         private StringComparison comp = StringComparison.OrdinalIgnoreCase;
@@ -22,25 +28,83 @@ namespace UPE_Excel_Formatter
         private Excel.Range titleRange;
         private List<CellObject> headerTitleList = new List<CellObject>();
         private List<RowObject> spreadsheetData = new List<RowObject>();
+        private List<Tuple<int, string>> sortColumns = new List<Tuple<int, string>>();
         private List<Tuple<int,string>> neededColumns = new List<Tuple<int,string>>();
         private List<LabelAndBoxObject> comboBoxAndLabelList = new List<LabelAndBoxObject>();
         private String filename;
         
 
+
+
+
         public UpeGuestListExportUtility()
         {
             InitializeComponent();
+
+
+            Dictionary<int, string> sortList = new Dictionary<int, string>()
+            {
+            {1, uniLabel.Text},
+            {2, rsvpNoteLabel.Text},
+            {3, dateOfReplyLabel.Text},
+            {4, dietaryRestrictionsLabel.Text},
+            {5, rsvpLabel.Text},
+            {6, namePrefixLabel.Text},
+            {7, firstNameLabel.Text },
+            {8, lastNameLabel.Text},
+            {9, emailLabel.Text},
+            {10, dateCreatedLabel.Text}
+
+            };
+            //var sortByList = new List<(int sortIndex, string sortName)> 
+            //{
+            //    (1, firstNameLabel.Text),
+            //    (2, lastNameLabel.Text),
+            //    (3, emailLabel.Text),
+            //    (4, uniLabel.Text),
+            //    (5, namePrefixLabel.Text),
+            //    (6, rsvpLabel.Text),
+            //    (7, rsvpNoteLabel.Text),
+            //    (8, dateOfReplyLabel.Text),
+            //    (9, dietaryRestrictionsLabel.Text),
+            //    (10, dateCreatedLabel.Text)
+
+
+
+
+            
+            //List<string> sortList = new List<string>()
+            //{
+
+            //};
+            
+
+
+
+            firstSortComboBox.BindingContext = new BindingContext();
+            firstSortComboBox.ValueMember = "Key";
+            firstSortComboBox.DisplayMember = "Value";
+            firstSortComboBox.DataSource = new BindingSource(sortList, null);
+            firstSortComboBox.SelectedIndex = 7;
+
+            secondSortComboBox.BindingContext = new BindingContext();
+            secondSortComboBox.ValueMember = "Key";
+            secondSortComboBox.DisplayMember = "Value";
+            secondSortComboBox.DataSource = new BindingSource(sortList, null);
+            secondSortComboBox.SelectedIndex = 4;
+
+
+            
+
         }
 
         void importSpreadSheet()
         {
+
             foreach (LabelAndBoxObject l in comboBoxAndLabelList)
             {
                 neededColumns.Add(new Tuple<int, string>(l.comboBox.SelectedIndex + 1, l.name));
             }
-
-
-            //TODO: Use vars?
 
 
 
@@ -55,8 +119,7 @@ namespace UPE_Excel_Formatter
 
 
 
-
-            //TODO: Add working box so the user knows it's working
+            
             //TODO: Sort data by: Type, 
 
             for (int r = 2; r < totalRows; r++)
@@ -67,23 +130,22 @@ namespace UPE_Excel_Formatter
                 foreach (Tuple<int, string> c in neededColumns)
                 {
 
-                    //DateTime cellDate;
                     if (c.Item2.Contains("date", comp))
                     {
-                        //TODO: Handle Null Exception
                         string cellString = "";
-                        //TimeSpan dateFromExcel = new TimeSpan(Convert.ToInt32((oSheet.cells[r, c.Item1] as Range)));
+
                         if ((oSheet.Cells[r, c.Item1] as Range).Value2 != null)
                         {
                             cellString = (oSheet.Cells[r, c.Item1] as Range).Value2.ToString();
                             double date = double.Parse(cellString);
                             cellString = DateTime.FromOADate(date).ToString("MM/dd/yyyy");
                         }
+
                         else
                         {
                             cellString = "";
                         }
-                        //cellDate = DateTime.FromOADate(d);
+
                         CellObject cell = new CellObject(r, c.Item1, cellString);
                         currentRow.Cells.Add(cell);
 
@@ -102,22 +164,13 @@ namespace UPE_Excel_Formatter
 
             }
 
-
-
-
-
-
-
             GC.Collect();
             GC.WaitForPendingFinalizers();
             GC.Collect();
             GC.WaitForPendingFinalizers();
-
-
 
             oWB.Close(Type.Missing, Type.Missing, Type.Missing);
             oWBS.Close();
-
 
         }
 
@@ -130,13 +183,19 @@ namespace UPE_Excel_Formatter
             oXL.Visible = false;
 
 
+            int sortColumn1 = 9;
+            int sortColumn2 = 5;
+
+            sortColumn1 = ((KeyValuePair<int, string>)firstSortComboBox.SelectedItem).Key;
+            sortColumn2 = ((KeyValuePair<int, string>)secondSortComboBox.SelectedItem).Key;
+
             int column = 1;
+
 
             foreach (Tuple<int, string> i in neededColumns)
             {
                 oSheet.Cells[1, column++].Value = i.Item2;
             }
-
 
             foreach (RowObject r in spreadsheetData)
             {
@@ -161,7 +220,8 @@ namespace UPE_Excel_Formatter
             Excel.Range bodyRangeEnd = oSheet.Cells[totalRows, totalColumns];
             //titleRange = (Excel.Range)oSheet.Range(oSheet.Cells[1, 1], oSheet.Cells[1, totalColumns]);
             titleRange = (Excel.Range)oSheet.get_Range(titleRangeStart, titleRangeEnd);
-            //TODO: Format data here
+            
+            //FORMAT DATA HERE
 
             oRng.Font.Name = "Garamond";
             oRng.Font.Size = 11;
@@ -183,15 +243,26 @@ namespace UPE_Excel_Formatter
 
             dynamic bodyRange = oSheet.get_Range(bodyRangeStart, bodyRangeEnd);
 
-            //TODO: Layout landscape, print area, borders
-
-
+            //TODO: Make columns dynamically sortable
             //SORT COLUMNS ARE NOT DYNAMIC - first sort is by Last Name (9), second by RSVP(5)
-            oRng.Sort(oRng.Columns[9]);
-            oRng.Sort(oRng.Columns[5]);
+            oRng.Sort(oRng.Columns[sortColumn2, Type.Missing], XlSortOrder.xlAscending,
+                            oRng.Columns[sortColumn1, Type.Missing], Type.Missing, XlSortOrder.xlAscending,
+                            Type.Missing, XlSortOrder.xlAscending,
+                            Excel.XlYesNoGuess.xlGuess, Type.Missing, Type.Missing,
+                            XlSortOrientation.xlSortColumns, Excel.XlSortMethod.xlPinYin,
+                            XlSortDataOption.xlSortNormal,
+                            XlSortDataOption.xlSortNormal,
+                            XlSortDataOption.xlSortNormal
+                            );
+
+            //bodyRange.Sort(bodyRange.Columns[sortColumn2]);
             oRng.Activate();
             oRng.Application.ActiveWindow.SplitRow = 1;
             oRng.Application.ActiveWindow.FreezePanes = true;
+            oRng.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+            oRng.Borders.Color = Excel.XlRgbColor.rgbBlack;
+            oRng.Borders.Weight = Excel.XlBorderWeight.xlThin;
+            oRng.WrapText = true;
             titleRange.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             titleRange.Borders.Color = Excel.XlRgbColor.rgbBlack;
             titleRange.Borders.Weight = Excel.XlBorderWeight.xlMedium;
@@ -227,6 +298,7 @@ namespace UPE_Excel_Formatter
 
 
             //Header and Footer data here
+            printSettings.LeftHeader = $"&\"Garamond\"&11&K000000{oRng.Rows.Count - 1} Guests";
             printSettings.CenterHeader = "&\"Garamond\"&B&24&K000000&F, as of &D";
             printSettings.RightFooter = "&\"Garamond\"&11&K000000&P of &N";
             printSettings.HeaderMargin = oXL.InchesToPoints(0.3);
@@ -366,64 +438,53 @@ namespace UPE_Excel_Formatter
                 uniComboBox.BindingContext = new BindingContext();
                 uniComboBox.DataSource = headerTitleList;
                 uniComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(uniComboBox, uniLabel, new List<string>() { "uni" }, "UNI"));
+                
 
                 rsvpNoteComboBox.BindingContext = new BindingContext();
                 rsvpNoteComboBox.DataSource = headerTitleList;
                 rsvpNoteComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(rsvpNoteComboBox, rsvpNoteLabel, new List<string>() { "rsvp", "note" }, "RSVP Note"));
+                
 
                 dateOfReplyComboBox.BindingContext = new BindingContext();
                 dateOfReplyComboBox.DataSource = headerTitleList;
                 dateOfReplyComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(dateOfReplyComboBox, dateOfReplyLabel, new List<string>() { "date", "reply" }, "Date of Reply"));
+                
 
 
                 guestCountComboBox.BindingContext = new BindingContext();
                 guestCountComboBox.DataSource = headerTitleList;
                 guestCountComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(guestCountComboBox, guestCountLabel, new List<string>() { }, "Guest Count"));
+                
+
 
                 rsvpComboBox.BindingContext = new BindingContext();
                 rsvpComboBox.DataSource = headerTitleList;
                 rsvpComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(rsvpComboBox, rsvpLabel, new List<string>() { "rsvp" }, "RSVP"));
+                
 
                 dietaryRestrictionsComboBox.BindingContext = new BindingContext();
                 dietaryRestrictionsComboBox.DataSource = headerTitleList;
                 dietaryRestrictionsComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(dietaryRestrictionsComboBox, dietaryRestrictionsLabel, new List<string>() { "dietary", "restrictions" }, "Dietary Restrictions"));
+                
 
                 namePrefixComboBox.BindingContext = new BindingContext();
                 namePrefixComboBox.DataSource = headerTitleList;
                 namePrefixComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(namePrefixComboBox, namePrefixLabel, new List<string>() { "prefix" }, "Name Prefix"));
+                
 
                 lastNameComboBox.BindingContext = new BindingContext();
                 firstNameComboBox.DataSource = headerTitleList;
                 firstNameComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(firstNameComboBox, firstNameLabel, new List<string>() { "first" }, "First Name"));
+                
 
                 lastNameComboBox.BindingContext = new BindingContext();
                 lastNameComboBox.DataSource = headerTitleList;
                 lastNameComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(lastNameComboBox, lastNameLabel, new List<string>() { "last" }, "Last Name"));
+                
 
                 emailComboBox.BindingContext = new BindingContext();
                 emailComboBox.DataSource = headerTitleList;
                 emailComboBox.DisplayMember = "Value";
-                comboBoxAndLabelList.Add(new LabelAndBoxObject(emailComboBox, emailLabel, new List<string>() { "email" }, "Email Address"));
-
-
-
-
-
-
-
-
-
-
-
 
 
                 //TODO: Is this duplication of date of reply??
@@ -431,7 +492,27 @@ namespace UPE_Excel_Formatter
                 dateCreatedComboBox.BindingContext = new BindingContext();
                 dateCreatedComboBox.DataSource = headerTitleList;
                 dateCreatedComboBox.DisplayMember = "Value";
+
+
+                //This should be in the same order as SortList
+
+
+
+
+
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(uniComboBox, uniLabel, new List<string>() { "uni" }, "UNI"));
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(rsvpNoteComboBox, rsvpNoteLabel, new List<string>() { "rsvp", "note" }, "RSVP Note"));
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(dateOfReplyComboBox, dateOfReplyLabel, new List<string>() { "date", "reply" }, "Date of Reply"));
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(dietaryRestrictionsComboBox, dietaryRestrictionsLabel, new List<string>() { "dietary", "restrictions" }, "Dietary Restrictions"));
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(rsvpComboBox, rsvpLabel, new List<string>() { "rsvp" }, "RSVP"));
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(namePrefixComboBox, namePrefixLabel, new List<string>() { "prefix" }, "Name Prefix"));
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(firstNameComboBox, firstNameLabel, new List<string>() { "first" }, "First Name"));
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(lastNameComboBox, lastNameLabel, new List<string>() { "last" }, "Last Name"));
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(emailComboBox, emailLabel, new List<string>() { "email" }, "Email Address"));
                 comboBoxAndLabelList.Add(new LabelAndBoxObject(dateCreatedComboBox, dateCreatedLabel, new List<string>() { "created" }, "Date Created"));
+                comboBoxAndLabelList.Add(new LabelAndBoxObject(guestCountComboBox, guestCountLabel, new List<string>() { }, "Guest Count"));
+
+
 
                 #endregion
 

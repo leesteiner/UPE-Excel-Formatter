@@ -12,10 +12,7 @@ using Jacksonsoft;
 namespace UPE_Excel_Formatter 
 {
 
-    //TODO: Toggle boolean switch on RSVP Column Change
-    //      add value to list of ints (insert rows)
-    //      after sheet is formatted entirely, add rows (last rows first so they line up)
-    //      make font same as title rows, merge cells
+
 
 
     public partial class UpeGuestListExportUtility : Form 
@@ -188,6 +185,14 @@ namespace UPE_Excel_Formatter
 
             sortColumn1 = ((KeyValuePair<int, string>)firstSortComboBox.SelectedItem).Key;
             sortColumn2 = ((KeyValuePair<int, string>)secondSortComboBox.SelectedItem).Key;
+            
+
+
+            //TODO: Toggle boolean switch on RSVP Column Change
+            //      add value to list of ints (insert rows)
+            //      after sheet is formatted entirely, add rows (last rows first so they line up)
+            //      make font same as title rows, merge cells
+
 
             int column = 1;
 
@@ -197,18 +202,16 @@ namespace UPE_Excel_Formatter
                 oSheet.Cells[1, column++].Value = i.Item2;
             }
 
-            foreach (RowObject r in spreadsheetData)
-            {
-                int currentColumn = 1;
-                foreach (CellObject c in r)
+                foreach (RowObject r in spreadsheetData)
                 {
-
-                    oSheet.Cells[c.Row, currentColumn].Value = c.Value;
-                    currentColumn++;
-
+                    int currentColumn = 1;
+                    foreach (CellObject c in r)
+                    {
+                        oSheet.Cells[c.Row, currentColumn].Value = c.Value;
+                        currentColumn++;
+                    }
                 }
 
-            }
 
 
             oRng = (Excel.Range)oSheet.UsedRange;
@@ -262,7 +265,7 @@ namespace UPE_Excel_Formatter
             oRng.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             oRng.Borders.Color = Excel.XlRgbColor.rgbBlack;
             oRng.Borders.Weight = Excel.XlBorderWeight.xlThin;
-            oRng.WrapText = true;
+
             titleRange.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             titleRange.Borders.Color = Excel.XlRgbColor.rgbBlack;
             titleRange.Borders.Weight = Excel.XlBorderWeight.xlMedium;
@@ -305,6 +308,68 @@ namespace UPE_Excel_Formatter
             printSettings.FooterMargin = oXL.InchesToPoints(0.3);
 
 
+            bool RsvpChecked = (((KeyValuePair<int, string>)secondSortComboBox.SelectedItem).Value.Contains("Rsvp", comp));
+
+
+
+            if (RsvpChecked)
+            {
+                Excel.Range rsvpRangeStart = oSheet.Cells[2, sortColumn2];
+                Excel.Range rsvpRangeEnd = oSheet.Cells[totalRows, sortColumn2];
+                Excel.Range rsvpRange = (Excel.Range)oSheet.get_Range(rsvpRangeStart, rsvpRangeEnd);
+
+
+                List<Tuple<int, string>> rsvpRowsToInsert = new List<Tuple<int, string>>();
+
+
+                string changeStringCheck = oSheet.Cells[2, sortColumn2].Value;
+                rsvpRowsToInsert.Add(new Tuple<int, string>(2, changeStringCheck));
+
+                for (int r = 2;r<totalRows;r++)
+                {
+                    if (changeStringCheck != oSheet.Cells[r,sortColumn2].Value)
+                    {
+                        changeStringCheck = oSheet.Cells[r, sortColumn2].Value;
+                        rsvpRowsToInsert.Add(new Tuple<int, string>(r, changeStringCheck));
+                    }
+
+                }
+                rsvpRowsToInsert.Reverse();
+                foreach (Tuple<int,string> t in rsvpRowsToInsert)
+                {
+                    oSheet.Rows[t.Item1].Insert();
+                    oSheet.Cells[t.Item1, 1].Value = t.Item2;
+                    oSheet.Range[oSheet.Cells[t.Item1, 1], oSheet.Cells[t.Item1,totalColumns]].Merge();
+                }
+                
+                    //int currentColumn = 1;
+                    ////IF CurrentColumn = sortcolumn2?
+
+
+                    //foreach (CellObject c in r)
+                    //{
+                    //    oSheet.Cells[c.Row, currentColumn].Value = c.Value;
+                    //    if (currentColumn == sortColumn2)
+                    //    {
+                    //        if (changeStringCheck != c.Value)
+                    //        {
+                    //            changeStringCheck = oSheet.Cells[c.Row, currentColumn].Value;
+                    //            rsvpRowsToInsert.Add(new Tuple<int, string>(c.Row, changeStringCheck));
+                    //        }
+                    //    }
+
+                    //    currentColumn++;
+
+                    //}
+
+                
+            }
+
+
+
+
+
+            oRng.WrapText = true;
             oXL.Visible = true;
 
             GC.Collect();

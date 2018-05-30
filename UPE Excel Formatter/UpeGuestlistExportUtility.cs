@@ -51,13 +51,23 @@ namespace UPE_Excel_Formatter
             {1, uniLabel.Text},
             {2, rsvpNoteLabel.Text},
             {3, dateOfReplyLabel.Text},
-            {4, dietaryRestrictionsLabel.Text},
-            {5, rsvpLabel.Text},
-            {6, namePrefixLabel.Text},
-            {7, firstNameLabel.Text },
-            {8, lastNameLabel.Text},
-            {9, emailLabel.Text},
-            {10, dateCreatedLabel.Text}
+            {4, guestCountLabel.Text},
+            {5, guestNameLabel.Text},
+            {6, guestDietaryRestrictionsLabel.Text},
+            {7, rsvpLabel.Text},
+            {8, dietaryRestrictionsLabel.Text},
+            {9, namePrefixLabel.Text},
+            {10, firstNameLabel.Text },
+            {11, lastNameLabel.Text},
+            {12, emailLabel.Text},
+            {13, nameSuffixLabel.Text},
+            {14, addressOneLabel.Text},
+            {15, addressTwoLabel.Text},
+            {16, addressThreeLabel.Text},
+            {17, cityLabel.Text},
+            {18, stateLabel.Text},
+            {19, postalLabel.Text},
+            {20, countryLabel.Text},
             };
 
             //Bind Dictionary of key/value pairs to two sorting Comboboxes
@@ -67,14 +77,14 @@ namespace UPE_Excel_Formatter
             firstSortComboBox.DisplayMember = "Value";
             firstSortComboBox.DataSource = new BindingSource(sortList, null);
             //7 matches LastName above minus 1, to account for 0 index on Lists
-            firstSortComboBox.SelectedIndex = 7;
+            firstSortComboBox.SelectedIndex = 10;
 
             secondSortComboBox.BindingContext = new BindingContext();
             secondSortComboBox.ValueMember = "Key";
             secondSortComboBox.DisplayMember = "Value";
             secondSortComboBox.DataSource = new BindingSource(sortList, null);
             //4 matches rsvpLabel above minus 1, to account for 0 index on Lists
-            secondSortComboBox.SelectedIndex = 4;
+            secondSortComboBox.SelectedIndex = 6;
 
             #endregion
 
@@ -309,8 +319,8 @@ namespace UPE_Excel_Formatter
 
 
             //Set initial sort columns in case of error with Dictionary import
-            int sortColumn1 = 8;
-            int sortColumn2 = 5;
+            int sortColumn1 = 10;
+            int sortColumn2 = 6;
 
             //Get user-defined columns by which to sort
             sortColumn1 = ((KeyValuePair<int, string>)firstSortComboBox.SelectedItem).Key;
@@ -557,6 +567,11 @@ namespace UPE_Excel_Formatter
             #region Bind comboBoxes
             //Bind comboboxes to list of header values, combine with label, search string, and corresponding header for final export, add to list
 
+
+
+
+            //TODO: Iterate through below... duh.
+            
             uniComboBox.BindingContext = new BindingContext();
             uniComboBox.DataSource = headerTitleList;
             uniComboBox.DisplayMember = "Value";
@@ -575,6 +590,14 @@ namespace UPE_Excel_Formatter
             guestCountComboBox.DisplayMember = "Value";
 
 
+            guestNameComboBox.BindingContext = new BindingContext();
+            guestNameComboBox.DataSource = headerTitleList;
+            guestNameComboBox.DisplayMember = "Value";
+
+            guestDietaryRestrictionsComboBox.BindingContext = new BindingContext();
+            guestDietaryRestrictionsComboBox.DataSource = headerTitleList;
+            guestDietaryRestrictionsComboBox.DisplayMember = "Value";
+
             rsvpComboBox.BindingContext = new BindingContext();
             rsvpComboBox.DataSource = headerTitleList;
             rsvpComboBox.DisplayMember = "Value";
@@ -587,7 +610,7 @@ namespace UPE_Excel_Formatter
             namePrefixComboBox.DataSource = headerTitleList;
             namePrefixComboBox.DisplayMember = "Value";
 
-            lastNameComboBox.BindingContext = new BindingContext();
+            firstNameComboBox.BindingContext = new BindingContext();
             firstNameComboBox.DataSource = headerTitleList;
             firstNameComboBox.DisplayMember = "Value";
 
@@ -599,11 +622,62 @@ namespace UPE_Excel_Formatter
             emailComboBox.DataSource = headerTitleList;
             emailComboBox.DisplayMember = "Value";
 
+            nameSuffixComboBox.BindingContext = new BindingContext();
+            nameSuffixComboBox.DataSource = headerTitleList;
+            nameSuffixComboBox.DisplayMember = "Value";
             //: Is this duplication of date of reply??
 
-            dateCreatedComboBox.BindingContext = new BindingContext();
-            dateCreatedComboBox.DataSource = headerTitleList;
-            dateCreatedComboBox.DisplayMember = "Value";
+            addressOneComboBox.BindingContext = new BindingContext();
+            addressOneComboBox.DataSource = headerTitleList;
+            addressOneComboBox.DisplayMember = "Value";
+
+            addressTwoComboBox.BindingContext = new BindingContext();
+            addressTwoComboBox.DataSource = headerTitleList;
+            addressTwoComboBox.DisplayMember = "Value";
+
+            addressThreeComboBox.BindingContext = new BindingContext();
+            addressThreeComboBox.DataSource = headerTitleList;
+            addressThreeComboBox.DisplayMember = "Value";
+
+            cityCombobox.BindingContext = new BindingContext();
+            cityCombobox.DataSource = headerTitleList;
+            cityCombobox.DisplayMember = "Value";
+
+            stateComboBox.BindingContext = new BindingContext();
+            stateComboBox.DataSource = headerTitleList;
+            stateComboBox.DisplayMember = "Value";
+
+            postalComboBox.BindingContext = new BindingContext();
+            postalComboBox.DataSource = headerTitleList;
+            postalComboBox.DisplayMember = "Value";
+
+            countryComboBox.BindingContext = new BindingContext();
+            countryComboBox.DataSource = headerTitleList;
+            countryComboBox.DisplayMember = "Value";
+
+
+
+            //{ 1, uniLabel.Text},
+            //{ 2, rsvpNoteLabel.Text},
+            //{ 3, dateOfReplyLabel.Text},
+            //{ 4, guestCountLabel.Text},
+            //{ 5, guestNameLabel.Text},
+            //{ 6, guestDietaryRestrictionsLabel.Text},
+            //{ 7, rsvpLabel.Text},
+            //{ 8, dietaryRestrictionsLabel.Text},
+            //{ 9, namePrefixLabel.Text},
+            //{ 10, firstNameLabel.Text },
+            //{ 11, lastNameLabel.Text},
+            //{ 12, emailLabel.Text},
+            //{ 13, nameSuffixLabel.Text},
+            //{ 14, addressOneLabel.Text},
+            //{ 15, addressTwoLabel.Text},
+            //{ 16, addressThreeLabel.Text},
+            //{ 17, cityLabel.Text},
+            //{ 18, stateLabel.Text},
+            //{ 19, postalLabel.Text},
+            //{ 20, countryLabel.Text},
+
 
 
             //This should be in the same order as SortList 
@@ -611,14 +685,24 @@ namespace UPE_Excel_Formatter
             comboBoxAndLabelList.Add(new LabelAndBoxObject(uniComboBox, uniLabel, new List<string>() { "uni" }, "UNI"));
             comboBoxAndLabelList.Add(new LabelAndBoxObject(rsvpNoteComboBox, rsvpNoteLabel, new List<string>() { "rsvp", "note" }, "RSVP Note"));
             comboBoxAndLabelList.Add(new LabelAndBoxObject(dateOfReplyComboBox, dateOfReplyLabel, new List<string>() { "date", "reply" }, "Date of Reply"));
-            comboBoxAndLabelList.Add(new LabelAndBoxObject(dietaryRestrictionsComboBox, dietaryRestrictionsLabel, new List<string>() { "dietary", "restrictions" }, "Dietary Restrictions"));
+            comboBoxAndLabelList.Add(new LabelAndBoxObject(guestCountComboBox, guestCountLabel, new List<string>() { "guest", "count" }, "Guest Count"));
+            comboBoxAndLabelList.Add(new LabelAndBoxObject(guestNameComboBox, guestNameLabel, new List<string>() { "guest", "name" }, "Guest Name"));
+            comboBoxAndLabelList.Add(new LabelAndBoxObject(guestDietaryRestrictionsComboBox, guestDietaryRestrictionsLabel, new List<string>() { "guest", "dietary" }, "Guest Dietary Restrictions"));
             comboBoxAndLabelList.Add(new LabelAndBoxObject(rsvpComboBox, rsvpLabel, new List<string>() { "rsvp" }, "RSVP"));
+            comboBoxAndLabelList.Add(new LabelAndBoxObject(dietaryRestrictionsComboBox, dietaryRestrictionsLabel, new List<string>() { "dietary", "restrictions" }, "Dietary Restrictions"));
             comboBoxAndLabelList.Add(new LabelAndBoxObject(namePrefixComboBox, namePrefixLabel, new List<string>() { "prefix" }, "Name Prefix"));
             comboBoxAndLabelList.Add(new LabelAndBoxObject(firstNameComboBox, firstNameLabel, new List<string>() { "first" }, "First Name"));
             comboBoxAndLabelList.Add(new LabelAndBoxObject(lastNameComboBox, lastNameLabel, new List<string>() { "last" }, "Last Name"));
             comboBoxAndLabelList.Add(new LabelAndBoxObject(emailComboBox, emailLabel, new List<string>() { "email" }, "Email Address"));
-            comboBoxAndLabelList.Add(new LabelAndBoxObject(dateCreatedComboBox, dateCreatedLabel, new List<string>() { "created" }, "Date Created"));
-            comboBoxAndLabelList.Add(new LabelAndBoxObject(guestCountComboBox, guestCountLabel, new List<string>() { }, "Guest Count"));
+            comboBoxAndLabelList.Add(new LabelAndBoxObject(nameSuffixComboBox, nameSuffixLabel, new List<string>() { "suffix" }, "Name Suffix"));
+            comboBoxAndLabelList.Add(new LabelAndBoxObject(addressOneComboBox, addressOneLabel, new List<string>() { "address", "one" }, "Address One"));
+            comboBoxAndLabelList.Add(new LabelAndBoxObject(addressTwoComboBox, addressTwoLabel, new List<string>() { "address", "two" }, "Address Two"));
+            comboBoxAndLabelList.Add(new LabelAndBoxObject(addressThreeComboBox, addressThreeLabel, new List<string>() { "address", "three" }, "Address Three"));
+            comboBoxAndLabelList.Add(new LabelAndBoxObject(cityCombobox, cityLabel, new List<string>() { "city" }, "City"));
+            comboBoxAndLabelList.Add(new LabelAndBoxObject(stateComboBox, stateLabel, new List<string>() { "state" }, "State"));
+            comboBoxAndLabelList.Add(new LabelAndBoxObject(postalComboBox, postalLabel, new List<string>() { "postal" }, "Postal"));
+            comboBoxAndLabelList.Add(new LabelAndBoxObject(countryComboBox, countryLabel, new List<string>() { "country" }, "Country"));
+
 
             #endregion
 
@@ -668,5 +752,9 @@ namespace UPE_Excel_Formatter
             }
         }
 
+        private void fieldMatchPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

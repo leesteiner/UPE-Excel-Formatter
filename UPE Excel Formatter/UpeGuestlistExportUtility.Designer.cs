@@ -40,10 +40,6 @@
             this.namePrefixLabel = new System.Windows.Forms.Label();
             this.namePrefixComboBox = new System.Windows.Forms.ComboBox();
             this.fieldMatchPanel = new System.Windows.Forms.Panel();
-            this.guestCountLabel = new System.Windows.Forms.Label();
-            this.guestCountComboBox = new System.Windows.Forms.ComboBox();
-            this.dateCreatedLabel = new System.Windows.Forms.Label();
-            this.dateCreatedComboBox = new System.Windows.Forms.ComboBox();
             this.dateOfReplyLabel = new System.Windows.Forms.Label();
             this.rsvpNoteComboBox = new System.Windows.Forms.ComboBox();
             this.rsvpNoteLabel = new System.Windows.Forms.Label();
@@ -52,6 +48,8 @@
             this.dietaryRestrictionsComboBox = new System.Windows.Forms.ComboBox();
             this.rsvpComboBox = new System.Windows.Forms.ComboBox();
             this.rsvpLabel = new System.Windows.Forms.Label();
+            this.guestCountLabel = new System.Windows.Forms.Label();
+            this.guestCountComboBox = new System.Windows.Forms.ComboBox();
             this.continueButton = new System.Windows.Forms.Button();
             this.upeGuestlistTitleLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -59,6 +57,26 @@
             this.firstSortComboBox = new System.Windows.Forms.ComboBox();
             this.firstSortLabel = new System.Windows.Forms.Label();
             this.secondSortComboBox = new System.Windows.Forms.ComboBox();
+            this.guestNameComboBox = new System.Windows.Forms.ComboBox();
+            this.guestNameLabel = new System.Windows.Forms.Label();
+            this.guestDietaryRestrictionsLabel = new System.Windows.Forms.Label();
+            this.guestDietaryRestrictionsComboBox = new System.Windows.Forms.ComboBox();
+            this.nameSuffixLabel = new System.Windows.Forms.Label();
+            this.nameSuffixComboBox = new System.Windows.Forms.ComboBox();
+            this.addressOneComboBox = new System.Windows.Forms.ComboBox();
+            this.addressOneLabel = new System.Windows.Forms.Label();
+            this.addressTwoComboBox = new System.Windows.Forms.ComboBox();
+            this.addressTwoLabel = new System.Windows.Forms.Label();
+            this.addressThreeComboBox = new System.Windows.Forms.ComboBox();
+            this.addressThreeLabel = new System.Windows.Forms.Label();
+            this.cityCombobox = new System.Windows.Forms.ComboBox();
+            this.cityLabel = new System.Windows.Forms.Label();
+            this.stateComboBox = new System.Windows.Forms.ComboBox();
+            this.stateLabel = new System.Windows.Forms.Label();
+            this.postalComboBox = new System.Windows.Forms.ComboBox();
+            this.postalLabel = new System.Windows.Forms.Label();
+            this.countryComboBox = new System.Windows.Forms.ComboBox();
+            this.countryLabel = new System.Windows.Forms.Label();
             this.fieldMatchPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -178,8 +196,29 @@
             // 
             // fieldMatchPanel
             // 
-            this.fieldMatchPanel.Controls.Add(this.dateCreatedLabel);
-            this.fieldMatchPanel.Controls.Add(this.dateCreatedComboBox);
+            this.fieldMatchPanel.Controls.Add(this.addressThreeLabel);
+            this.fieldMatchPanel.Controls.Add(this.addressTwoLabel);
+            this.fieldMatchPanel.Controls.Add(this.countryLabel);
+            this.fieldMatchPanel.Controls.Add(this.postalLabel);
+            this.fieldMatchPanel.Controls.Add(this.stateLabel);
+            this.fieldMatchPanel.Controls.Add(this.cityLabel);
+            this.fieldMatchPanel.Controls.Add(this.addressOneLabel);
+            this.fieldMatchPanel.Controls.Add(this.nameSuffixLabel);
+            this.fieldMatchPanel.Controls.Add(this.guestCountLabel);
+            this.fieldMatchPanel.Controls.Add(this.addressThreeComboBox);
+            this.fieldMatchPanel.Controls.Add(this.addressTwoComboBox);
+            this.fieldMatchPanel.Controls.Add(this.countryComboBox);
+            this.fieldMatchPanel.Controls.Add(this.postalComboBox);
+            this.fieldMatchPanel.Controls.Add(this.stateComboBox);
+            this.fieldMatchPanel.Controls.Add(this.cityCombobox);
+            this.fieldMatchPanel.Controls.Add(this.addressOneComboBox);
+            this.fieldMatchPanel.Controls.Add(this.nameSuffixComboBox);
+            this.fieldMatchPanel.Controls.Add(this.guestDietaryRestrictionsLabel);
+            this.fieldMatchPanel.Controls.Add(this.guestDietaryRestrictionsComboBox);
+            this.fieldMatchPanel.Controls.Add(this.guestNameComboBox);
+            this.fieldMatchPanel.Controls.Add(this.guestNameLabel);
+            this.fieldMatchPanel.Controls.Add(this.guestCountComboBox);
+            this.fieldMatchPanel.Controls.Add(this.continueButton);
             this.fieldMatchPanel.Controls.Add(this.dateOfReplyLabel);
             this.fieldMatchPanel.Controls.Add(this.rsvpNoteComboBox);
             this.fieldMatchPanel.Controls.Add(this.rsvpNoteLabel);
@@ -200,50 +239,9 @@
             this.fieldMatchPanel.Controls.Add(this.uniLabel);
             this.fieldMatchPanel.Location = new System.Drawing.Point(47, 155);
             this.fieldMatchPanel.Name = "fieldMatchPanel";
-            this.fieldMatchPanel.Size = new System.Drawing.Size(824, 391);
+            this.fieldMatchPanel.Size = new System.Drawing.Size(824, 804);
             this.fieldMatchPanel.TabIndex = 11;
-            // 
-            // guestCountLabel
-            // 
-            this.guestCountLabel.AutoSize = true;
-            this.guestCountLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guestCountLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
-            this.guestCountLabel.Location = new System.Drawing.Point(12, 560);
-            this.guestCountLabel.Name = "guestCountLabel";
-            this.guestCountLabel.Size = new System.Drawing.Size(96, 21);
-            this.guestCountLabel.TabIndex = 22;
-            this.guestCountLabel.Text = "Guest Count";
-            this.guestCountLabel.Visible = false;
-            // 
-            // guestCountComboBox
-            // 
-            this.guestCountComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guestCountComboBox.FormattingEnabled = true;
-            this.guestCountComboBox.Location = new System.Drawing.Point(12, 584);
-            this.guestCountComboBox.Name = "guestCountComboBox";
-            this.guestCountComboBox.Size = new System.Drawing.Size(102, 29);
-            this.guestCountComboBox.TabIndex = 21;
-            this.guestCountComboBox.Visible = false;
-            // 
-            // dateCreatedLabel
-            // 
-            this.dateCreatedLabel.AutoSize = true;
-            this.dateCreatedLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateCreatedLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
-            this.dateCreatedLabel.Location = new System.Drawing.Point(406, 314);
-            this.dateCreatedLabel.Name = "dateCreatedLabel";
-            this.dateCreatedLabel.Size = new System.Drawing.Size(100, 21);
-            this.dateCreatedLabel.TabIndex = 20;
-            this.dateCreatedLabel.Text = "Date Created";
-            // 
-            // dateCreatedComboBox
-            // 
-            this.dateCreatedComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateCreatedComboBox.FormattingEnabled = true;
-            this.dateCreatedComboBox.Location = new System.Drawing.Point(406, 338);
-            this.dateCreatedComboBox.Name = "dateCreatedComboBox";
-            this.dateCreatedComboBox.Size = new System.Drawing.Size(351, 29);
-            this.dateCreatedComboBox.TabIndex = 19;
+            this.fieldMatchPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.fieldMatchPanel_Paint);
             // 
             // dateOfReplyLabel
             // 
@@ -325,13 +323,35 @@
             this.rsvpLabel.TabIndex = 16;
             this.rsvpLabel.Text = "RSVP";
             // 
+            // guestCountLabel
+            // 
+            this.guestCountLabel.AutoSize = true;
+            this.guestCountLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guestCountLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
+            this.guestCountLabel.Location = new System.Drawing.Point(22, 737);
+            this.guestCountLabel.Name = "guestCountLabel";
+            this.guestCountLabel.Size = new System.Drawing.Size(96, 21);
+            this.guestCountLabel.TabIndex = 22;
+            this.guestCountLabel.Text = "Guest Count";
+            this.guestCountLabel.Visible = false;
+            // 
+            // guestCountComboBox
+            // 
+            this.guestCountComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guestCountComboBox.FormattingEnabled = true;
+            this.guestCountComboBox.Location = new System.Drawing.Point(22, 761);
+            this.guestCountComboBox.Name = "guestCountComboBox";
+            this.guestCountComboBox.Size = new System.Drawing.Size(102, 29);
+            this.guestCountComboBox.TabIndex = 21;
+            this.guestCountComboBox.Visible = false;
+            // 
             // continueButton
             // 
             this.continueButton.BackColor = System.Drawing.Color.White;
             this.continueButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.continueButton.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.continueButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
-            this.continueButton.Location = new System.Drawing.Point(353, 564);
+            this.continueButton.Location = new System.Drawing.Point(190, 722);
             this.continueButton.Name = "continueButton";
             this.continueButton.Size = new System.Drawing.Size(192, 49);
             this.continueButton.TabIndex = 11;
@@ -399,21 +419,218 @@
             this.secondSortComboBox.Size = new System.Drawing.Size(142, 29);
             this.secondSortComboBox.TabIndex = 23;
             // 
+            // guestNameComboBox
+            // 
+            this.guestNameComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guestNameComboBox.FormattingEnabled = true;
+            this.guestNameComboBox.Location = new System.Drawing.Point(20, 413);
+            this.guestNameComboBox.Name = "guestNameComboBox";
+            this.guestNameComboBox.Size = new System.Drawing.Size(351, 29);
+            this.guestNameComboBox.TabIndex = 21;
+            // 
+            // guestNameLabel
+            // 
+            this.guestNameLabel.AutoSize = true;
+            this.guestNameLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guestNameLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
+            this.guestNameLabel.Location = new System.Drawing.Point(18, 389);
+            this.guestNameLabel.Name = "guestNameLabel";
+            this.guestNameLabel.Size = new System.Drawing.Size(96, 21);
+            this.guestNameLabel.TabIndex = 22;
+            this.guestNameLabel.Text = "Guest Name";
+            // 
+            // guestDietaryRestrictionsLabel
+            // 
+            this.guestDietaryRestrictionsLabel.AutoSize = true;
+            this.guestDietaryRestrictionsLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guestDietaryRestrictionsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
+            this.guestDietaryRestrictionsLabel.Location = new System.Drawing.Point(18, 464);
+            this.guestDietaryRestrictionsLabel.Name = "guestDietaryRestrictionsLabel";
+            this.guestDietaryRestrictionsLabel.Size = new System.Drawing.Size(189, 21);
+            this.guestDietaryRestrictionsLabel.TabIndex = 24;
+            this.guestDietaryRestrictionsLabel.Text = "Guest Dietary Restrictions";
+            // 
+            // guestDietaryRestrictionsComboBox
+            // 
+            this.guestDietaryRestrictionsComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guestDietaryRestrictionsComboBox.FormattingEnabled = true;
+            this.guestDietaryRestrictionsComboBox.Location = new System.Drawing.Point(22, 488);
+            this.guestDietaryRestrictionsComboBox.Name = "guestDietaryRestrictionsComboBox";
+            this.guestDietaryRestrictionsComboBox.Size = new System.Drawing.Size(351, 29);
+            this.guestDietaryRestrictionsComboBox.TabIndex = 23;
+            // 
+            // nameSuffixLabel
+            // 
+            this.nameSuffixLabel.AutoSize = true;
+            this.nameSuffixLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nameSuffixLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
+            this.nameSuffixLabel.Location = new System.Drawing.Point(404, 389);
+            this.nameSuffixLabel.Name = "nameSuffixLabel";
+            this.nameSuffixLabel.Size = new System.Drawing.Size(95, 21);
+            this.nameSuffixLabel.TabIndex = 26;
+            this.nameSuffixLabel.Text = "Name Suffix";
+            // 
+            // nameSuffixComboBox
+            // 
+            this.nameSuffixComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nameSuffixComboBox.FormattingEnabled = true;
+            this.nameSuffixComboBox.Location = new System.Drawing.Point(406, 413);
+            this.nameSuffixComboBox.Name = "nameSuffixComboBox";
+            this.nameSuffixComboBox.Size = new System.Drawing.Size(351, 29);
+            this.nameSuffixComboBox.TabIndex = 25;
+            // 
+            // addressOneComboBox
+            // 
+            this.addressOneComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addressOneComboBox.FormattingEnabled = true;
+            this.addressOneComboBox.Location = new System.Drawing.Point(406, 488);
+            this.addressOneComboBox.Name = "addressOneComboBox";
+            this.addressOneComboBox.Size = new System.Drawing.Size(351, 29);
+            this.addressOneComboBox.TabIndex = 25;
+            // 
+            // addressOneLabel
+            // 
+            this.addressOneLabel.AutoSize = true;
+            this.addressOneLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addressOneLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
+            this.addressOneLabel.Location = new System.Drawing.Point(404, 464);
+            this.addressOneLabel.Name = "addressOneLabel";
+            this.addressOneLabel.Size = new System.Drawing.Size(99, 21);
+            this.addressOneLabel.TabIndex = 26;
+            this.addressOneLabel.Text = "Address One";
+            // 
+            // addressTwoComboBox
+            // 
+            this.addressTwoComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addressTwoComboBox.FormattingEnabled = true;
+            this.addressTwoComboBox.Location = new System.Drawing.Point(406, 559);
+            this.addressTwoComboBox.Name = "addressTwoComboBox";
+            this.addressTwoComboBox.Size = new System.Drawing.Size(351, 29);
+            this.addressTwoComboBox.TabIndex = 25;
+            // 
+            // addressTwoLabel
+            // 
+            this.addressTwoLabel.AutoSize = true;
+            this.addressTwoLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addressTwoLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
+            this.addressTwoLabel.Location = new System.Drawing.Point(404, 535);
+            this.addressTwoLabel.Name = "addressTwoLabel";
+            this.addressTwoLabel.Size = new System.Drawing.Size(99, 21);
+            this.addressTwoLabel.TabIndex = 26;
+            this.addressTwoLabel.Text = "Address Two";
+            // 
+            // addressThreeComboBox
+            // 
+            this.addressThreeComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addressThreeComboBox.FormattingEnabled = true;
+            this.addressThreeComboBox.Location = new System.Drawing.Point(406, 636);
+            this.addressThreeComboBox.Name = "addressThreeComboBox";
+            this.addressThreeComboBox.Size = new System.Drawing.Size(351, 29);
+            this.addressThreeComboBox.TabIndex = 25;
+            // 
+            // addressThreeLabel
+            // 
+            this.addressThreeLabel.AutoSize = true;
+            this.addressThreeLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addressThreeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
+            this.addressThreeLabel.Location = new System.Drawing.Point(404, 612);
+            this.addressThreeLabel.Name = "addressThreeLabel";
+            this.addressThreeLabel.Size = new System.Drawing.Size(109, 21);
+            this.addressThreeLabel.TabIndex = 26;
+            this.addressThreeLabel.Text = "Address Three";
+            // 
+            // cityCombobox
+            // 
+            this.cityCombobox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cityCombobox.FormattingEnabled = true;
+            this.cityCombobox.Location = new System.Drawing.Point(20, 559);
+            this.cityCombobox.Name = "cityCombobox";
+            this.cityCombobox.Size = new System.Drawing.Size(351, 29);
+            this.cityCombobox.TabIndex = 25;
+            // 
+            // cityLabel
+            // 
+            this.cityLabel.AutoSize = true;
+            this.cityLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cityLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
+            this.cityLabel.Location = new System.Drawing.Point(18, 535);
+            this.cityLabel.Name = "cityLabel";
+            this.cityLabel.Size = new System.Drawing.Size(37, 21);
+            this.cityLabel.TabIndex = 26;
+            this.cityLabel.Text = "City";
+            // 
+            // stateComboBox
+            // 
+            this.stateComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stateComboBox.FormattingEnabled = true;
+            this.stateComboBox.Location = new System.Drawing.Point(22, 612);
+            this.stateComboBox.Name = "stateComboBox";
+            this.stateComboBox.Size = new System.Drawing.Size(351, 29);
+            this.stateComboBox.TabIndex = 25;
+            // 
+            // stateLabel
+            // 
+            this.stateLabel.AutoSize = true;
+            this.stateLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.stateLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
+            this.stateLabel.Location = new System.Drawing.Point(20, 588);
+            this.stateLabel.Name = "stateLabel";
+            this.stateLabel.Size = new System.Drawing.Size(45, 21);
+            this.stateLabel.TabIndex = 26;
+            this.stateLabel.Text = "State";
+            // 
+            // postalComboBox
+            // 
+            this.postalComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.postalComboBox.FormattingEnabled = true;
+            this.postalComboBox.Location = new System.Drawing.Point(22, 670);
+            this.postalComboBox.Name = "postalComboBox";
+            this.postalComboBox.Size = new System.Drawing.Size(351, 29);
+            this.postalComboBox.TabIndex = 25;
+            // 
+            // postalLabel
+            // 
+            this.postalLabel.AutoSize = true;
+            this.postalLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.postalLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
+            this.postalLabel.Location = new System.Drawing.Point(20, 646);
+            this.postalLabel.Name = "postalLabel";
+            this.postalLabel.Size = new System.Drawing.Size(52, 21);
+            this.postalLabel.TabIndex = 26;
+            this.postalLabel.Text = "Postal";
+            // 
+            // countryComboBox
+            // 
+            this.countryComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.countryComboBox.FormattingEnabled = true;
+            this.countryComboBox.Location = new System.Drawing.Point(408, 699);
+            this.countryComboBox.Name = "countryComboBox";
+            this.countryComboBox.Size = new System.Drawing.Size(351, 29);
+            this.countryComboBox.TabIndex = 25;
+            // 
+            // countryLabel
+            // 
+            this.countryLabel.AutoSize = true;
+            this.countryLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.countryLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
+            this.countryLabel.Location = new System.Drawing.Point(406, 675);
+            this.countryLabel.Name = "countryLabel";
+            this.countryLabel.Size = new System.Drawing.Size(66, 21);
+            this.countryLabel.TabIndex = 26;
+            this.countryLabel.Text = "Country";
+            // 
             // UpeGuestListExportUtility
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1129, 629);
+            this.ClientSize = new System.Drawing.Size(1129, 981);
             this.Controls.Add(this.secondSortLabel);
-            this.Controls.Add(this.guestCountLabel);
             this.Controls.Add(this.firstSortComboBox);
             this.Controls.Add(this.firstSortLabel);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.secondSortComboBox);
-            this.Controls.Add(this.guestCountComboBox);
             this.Controls.Add(this.upeGuestlistTitleLabel);
-            this.Controls.Add(this.continueButton);
             this.Controls.Add(this.fieldMatchPanel);
             this.Controls.Add(this.loadFileButton);
             this.Name = "UpeGuestListExportUtility";
@@ -448,8 +665,6 @@
         private System.Windows.Forms.ComboBox dietaryRestrictionsComboBox;
         private System.Windows.Forms.ComboBox rsvpComboBox;
         private System.Windows.Forms.Label rsvpLabel;
-        private System.Windows.Forms.Label dateCreatedLabel;
-        private System.Windows.Forms.ComboBox dateCreatedComboBox;
         private System.Windows.Forms.Label upeGuestlistTitleLabel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label guestCountLabel;
@@ -458,6 +673,26 @@
         private System.Windows.Forms.ComboBox firstSortComboBox;
         private System.Windows.Forms.Label firstSortLabel;
         private System.Windows.Forms.ComboBox secondSortComboBox;
+        private System.Windows.Forms.Label addressThreeLabel;
+        private System.Windows.Forms.Label addressTwoLabel;
+        private System.Windows.Forms.Label countryLabel;
+        private System.Windows.Forms.Label postalLabel;
+        private System.Windows.Forms.Label stateLabel;
+        private System.Windows.Forms.Label cityLabel;
+        private System.Windows.Forms.Label addressOneLabel;
+        private System.Windows.Forms.Label nameSuffixLabel;
+        private System.Windows.Forms.ComboBox addressThreeComboBox;
+        private System.Windows.Forms.ComboBox addressTwoComboBox;
+        private System.Windows.Forms.ComboBox countryComboBox;
+        private System.Windows.Forms.ComboBox postalComboBox;
+        private System.Windows.Forms.ComboBox stateComboBox;
+        private System.Windows.Forms.ComboBox cityCombobox;
+        private System.Windows.Forms.ComboBox addressOneComboBox;
+        private System.Windows.Forms.ComboBox nameSuffixComboBox;
+        private System.Windows.Forms.Label guestDietaryRestrictionsLabel;
+        private System.Windows.Forms.ComboBox guestDietaryRestrictionsComboBox;
+        private System.Windows.Forms.ComboBox guestNameComboBox;
+        private System.Windows.Forms.Label guestNameLabel;
     }
 }
 

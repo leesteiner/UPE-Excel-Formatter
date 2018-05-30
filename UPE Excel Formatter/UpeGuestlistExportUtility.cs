@@ -115,11 +115,24 @@ namespace UPE_Excel_Formatter
 
                 //For each column in Header (row 1), create cell object, pass in row 1, column num and value
                 //Add cell to headerTitleList
+
+                //TODO: Add more fields
+                //TODO: Allow for input of final sheet
                 for (int c = 1; c < totalColumns + 1; c++)
                 {
-                    string value = oSheet.Cells[1, c].Value.ToString();
-                    CellObject cell = new CellObject(1, c, value);
-                    headerTitleList.Add(cell);
+                    string value;
+                    if(oSheet.Cells[1,c].Value != null)
+                    {
+                        value = oSheet.Cells[1, c].Value.ToString();
+                        CellObject cell = new CellObject(1, c, value);
+                        headerTitleList.Add(cell);
+                    }
+                    else
+                    {
+                        value = "";
+                    }
+                    
+                    
                 }
 
                 //Add last cell to headerTitleList for user option in case match can't be made later
@@ -500,7 +513,7 @@ namespace UPE_Excel_Formatter
                 //}
 
             }
-
+            //TODO: Enable importing of merged rows (check for null value in Last Name column, discard entire row?
 
 
 

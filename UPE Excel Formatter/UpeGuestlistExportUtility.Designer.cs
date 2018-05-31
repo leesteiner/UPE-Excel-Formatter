@@ -41,6 +41,7 @@
             this.namePrefixLabel = new System.Windows.Forms.Label();
             this.namePrefixComboBox = new System.Windows.Forms.ComboBox();
             this.fieldMatchPanel = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.secondSortLabel = new System.Windows.Forms.Label();
             this.addressThreeLabel = new System.Windows.Forms.Label();
             this.firstSortComboBox = new System.Windows.Forms.ComboBox();
@@ -78,7 +79,6 @@
             this.rsvpLabel = new System.Windows.Forms.Label();
             this.upeGuestlistTitleLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.fieldMatchPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -98,12 +98,15 @@
             // 
             // firstNameComboBox
             // 
+            this.firstNameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.firstNameComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.firstNameComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.firstNameComboBox.FormattingEnabled = true;
             this.firstNameComboBox.Location = new System.Drawing.Point(20, 103);
             this.firstNameComboBox.Name = "firstNameComboBox";
             this.firstNameComboBox.Size = new System.Drawing.Size(351, 29);
             this.firstNameComboBox.TabIndex = 1;
+            this.firstNameComboBox.SelectionChangeCommitted += new System.EventHandler(this.onSelectionChange);
             // 
             // firstNameLabel
             // 
@@ -129,12 +132,15 @@
             // 
             // lastNameComboBox
             // 
+            this.lastNameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.lastNameComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.lastNameComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lastNameComboBox.FormattingEnabled = true;
             this.lastNameComboBox.Location = new System.Drawing.Point(20, 172);
             this.lastNameComboBox.Name = "lastNameComboBox";
             this.lastNameComboBox.Size = new System.Drawing.Size(351, 29);
             this.lastNameComboBox.TabIndex = 3;
+            this.lastNameComboBox.SelectionChangeCommitted += new System.EventHandler(this.onSelectionChange);
             // 
             // uniLabel
             // 
@@ -149,12 +155,15 @@
             // 
             // uniComboBox
             // 
+            this.uniComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.uniComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.uniComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uniComboBox.FormattingEnabled = true;
             this.uniComboBox.Location = new System.Drawing.Point(20, 310);
             this.uniComboBox.Name = "uniComboBox";
             this.uniComboBox.Size = new System.Drawing.Size(351, 29);
             this.uniComboBox.TabIndex = 5;
+            this.uniComboBox.SelectionChangeCommitted += new System.EventHandler(this.onSelectionChange);
             // 
             // emailLabel
             // 
@@ -169,12 +178,15 @@
             // 
             // emailComboBox
             // 
+            this.emailComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.emailComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.emailComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.emailComboBox.FormattingEnabled = true;
             this.emailComboBox.Location = new System.Drawing.Point(20, 241);
             this.emailComboBox.Name = "emailComboBox";
             this.emailComboBox.Size = new System.Drawing.Size(351, 29);
             this.emailComboBox.TabIndex = 7;
+            this.emailComboBox.SelectionChangeCommitted += new System.EventHandler(this.onSelectionChange);
             // 
             // namePrefixLabel
             // 
@@ -189,12 +201,15 @@
             // 
             // namePrefixComboBox
             // 
+            this.namePrefixComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.namePrefixComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.namePrefixComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.namePrefixComboBox.FormattingEnabled = true;
             this.namePrefixComboBox.Location = new System.Drawing.Point(20, 34);
             this.namePrefixComboBox.Name = "namePrefixComboBox";
             this.namePrefixComboBox.Size = new System.Drawing.Size(351, 29);
             this.namePrefixComboBox.TabIndex = 9;
+            this.namePrefixComboBox.SelectionChangeCommitted += new System.EventHandler(this.onSelectionChange);
             // 
             // fieldMatchPanel
             // 
@@ -250,6 +265,16 @@
             this.fieldMatchPanel.TabIndex = 11;
             this.fieldMatchPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.fieldMatchPanel_Paint);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(763, 561);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(222, 51);
+            this.button1.TabIndex = 27;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // secondSortLabel
             // 
             this.secondSortLabel.AutoSize = true;
@@ -274,6 +299,8 @@
             // 
             // firstSortComboBox
             // 
+            this.firstSortComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.firstSortComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.firstSortComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.firstSortComboBox.FormattingEnabled = true;
             this.firstSortComboBox.Location = new System.Drawing.Point(22, 480);
@@ -288,7 +315,7 @@
             this.addressTwoLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
             this.addressTwoLabel.Location = new System.Drawing.Point(802, 79);
             this.addressTwoLabel.Name = "addressTwoLabel";
-            this.addressTwoLabel.Size = new System.Drawing.Size(98, 21);
+            this.addressTwoLabel.Size = new System.Drawing.Size(99, 21);
             this.addressTwoLabel.TabIndex = 26;
             this.addressTwoLabel.Text = "Address Two";
             // 
@@ -321,12 +348,14 @@
             this.postalLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
             this.postalLabel.Location = new System.Drawing.Point(802, 355);
             this.postalLabel.Name = "postalLabel";
-            this.postalLabel.Size = new System.Drawing.Size(51, 21);
+            this.postalLabel.Size = new System.Drawing.Size(52, 21);
             this.postalLabel.TabIndex = 26;
             this.postalLabel.Text = "Postal";
             // 
             // secondSortComboBox
             // 
+            this.secondSortComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.secondSortComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.secondSortComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.secondSortComboBox.FormattingEnabled = true;
             this.secondSortComboBox.Location = new System.Drawing.Point(22, 556);
@@ -341,7 +370,7 @@
             this.stateLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
             this.stateLabel.Location = new System.Drawing.Point(802, 286);
             this.stateLabel.Name = "stateLabel";
-            this.stateLabel.Size = new System.Drawing.Size(44, 21);
+            this.stateLabel.Size = new System.Drawing.Size(45, 21);
             this.stateLabel.TabIndex = 26;
             this.stateLabel.Text = "State";
             // 
@@ -380,12 +409,15 @@
             // 
             // guestDietaryRestrictionsComboBox
             // 
+            this.guestDietaryRestrictionsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.guestDietaryRestrictionsComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.guestDietaryRestrictionsComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guestDietaryRestrictionsComboBox.FormattingEnabled = true;
             this.guestDietaryRestrictionsComboBox.Location = new System.Drawing.Point(412, 379);
             this.guestDietaryRestrictionsComboBox.Name = "guestDietaryRestrictionsComboBox";
             this.guestDietaryRestrictionsComboBox.Size = new System.Drawing.Size(351, 29);
             this.guestDietaryRestrictionsComboBox.TabIndex = 23;
+            this.guestDietaryRestrictionsComboBox.SelectionChangeCommitted += new System.EventHandler(this.onSelectionChange);
             // 
             // guestCountLabel
             // 
@@ -412,21 +444,27 @@
             // 
             // addressThreeComboBox
             // 
+            this.addressThreeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.addressThreeComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.addressThreeComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addressThreeComboBox.FormattingEnabled = true;
             this.addressThreeComboBox.Location = new System.Drawing.Point(804, 172);
             this.addressThreeComboBox.Name = "addressThreeComboBox";
             this.addressThreeComboBox.Size = new System.Drawing.Size(351, 29);
             this.addressThreeComboBox.TabIndex = 25;
+            this.addressThreeComboBox.SelectionChangeCommitted += new System.EventHandler(this.onSelectionChange);
             // 
             // guestNameComboBox
             // 
+            this.guestNameComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.guestNameComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.guestNameComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guestNameComboBox.FormattingEnabled = true;
             this.guestNameComboBox.Location = new System.Drawing.Point(412, 310);
             this.guestNameComboBox.Name = "guestNameComboBox";
             this.guestNameComboBox.Size = new System.Drawing.Size(351, 29);
             this.guestNameComboBox.TabIndex = 21;
+            this.guestNameComboBox.SelectionChangeCommitted += new System.EventHandler(this.onSelectionChange);
             // 
             // guestDietaryRestrictionsLabel
             // 
@@ -441,69 +479,92 @@
             // 
             // addressTwoComboBox
             // 
+            this.addressTwoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.addressTwoComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.addressTwoComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addressTwoComboBox.FormattingEnabled = true;
             this.addressTwoComboBox.Location = new System.Drawing.Point(804, 103);
             this.addressTwoComboBox.Name = "addressTwoComboBox";
             this.addressTwoComboBox.Size = new System.Drawing.Size(351, 29);
             this.addressTwoComboBox.TabIndex = 25;
+            this.addressTwoComboBox.SelectionChangeCommitted += new System.EventHandler(this.onSelectionChange);
             // 
             // countryComboBox
             // 
+            this.countryComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.countryComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.countryComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.countryComboBox.FormattingEnabled = true;
             this.countryComboBox.Location = new System.Drawing.Point(804, 448);
             this.countryComboBox.Name = "countryComboBox";
             this.countryComboBox.Size = new System.Drawing.Size(351, 29);
             this.countryComboBox.TabIndex = 25;
+            this.countryComboBox.SelectionChangeCommitted += new System.EventHandler(this.onSelectionChange);
             // 
             // postalComboBox
             // 
+            this.postalComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.postalComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.postalComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.postalComboBox.FormattingEnabled = true;
             this.postalComboBox.Location = new System.Drawing.Point(804, 379);
             this.postalComboBox.Name = "postalComboBox";
             this.postalComboBox.Size = new System.Drawing.Size(351, 29);
             this.postalComboBox.TabIndex = 25;
+            this.postalComboBox.SelectionChangeCommitted += new System.EventHandler(this.onSelectionChange);
             // 
             // stateComboBox
             // 
+            this.stateComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.stateComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.stateComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.stateComboBox.FormattingEnabled = true;
             this.stateComboBox.Location = new System.Drawing.Point(804, 310);
             this.stateComboBox.Name = "stateComboBox";
             this.stateComboBox.Size = new System.Drawing.Size(351, 29);
             this.stateComboBox.TabIndex = 25;
+            this.stateComboBox.SelectionChangeCommitted += new System.EventHandler(this.onSelectionChange);
             // 
             // cityCombobox
             // 
+            this.cityCombobox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cityCombobox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cityCombobox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cityCombobox.FormattingEnabled = true;
             this.cityCombobox.Location = new System.Drawing.Point(804, 241);
             this.cityCombobox.Name = "cityCombobox";
             this.cityCombobox.Size = new System.Drawing.Size(351, 29);
             this.cityCombobox.TabIndex = 25;
+            this.cityCombobox.SelectionChangeCommitted += new System.EventHandler(this.onSelectionChange);
             // 
             // addressOneComboBox
             // 
+            this.addressOneComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.addressOneComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.addressOneComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.addressOneComboBox.FormattingEnabled = true;
             this.addressOneComboBox.Location = new System.Drawing.Point(804, 34);
             this.addressOneComboBox.Name = "addressOneComboBox";
             this.addressOneComboBox.Size = new System.Drawing.Size(351, 29);
             this.addressOneComboBox.TabIndex = 25;
+            this.addressOneComboBox.SelectionChangeCommitted += new System.EventHandler(this.onSelectionChange);
             // 
             // nameSuffixComboBox
             // 
+            this.nameSuffixComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.nameSuffixComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.nameSuffixComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nameSuffixComboBox.FormattingEnabled = true;
             this.nameSuffixComboBox.Location = new System.Drawing.Point(20, 379);
             this.nameSuffixComboBox.Name = "nameSuffixComboBox";
             this.nameSuffixComboBox.Size = new System.Drawing.Size(351, 29);
             this.nameSuffixComboBox.TabIndex = 25;
+            this.nameSuffixComboBox.SelectionChangeCommitted += new System.EventHandler(this.onSelectionChange);
             // 
             // guestCountComboBox
             // 
+            this.guestCountComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.guestCountComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.guestCountComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guestCountComboBox.FormattingEnabled = true;
             this.guestCountComboBox.Location = new System.Drawing.Point(335, 519);
@@ -539,12 +600,15 @@
             // 
             // rsvpNoteComboBox
             // 
+            this.rsvpNoteComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.rsvpNoteComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.rsvpNoteComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rsvpNoteComboBox.FormattingEnabled = true;
             this.rsvpNoteComboBox.Location = new System.Drawing.Point(412, 103);
             this.rsvpNoteComboBox.Name = "rsvpNoteComboBox";
             this.rsvpNoteComboBox.Size = new System.Drawing.Size(351, 29);
             this.rsvpNoteComboBox.TabIndex = 11;
+            this.rsvpNoteComboBox.SelectionChangeCommitted += new System.EventHandler(this.onSelectionChange);
             // 
             // rsvpNoteLabel
             // 
@@ -570,30 +634,39 @@
             // 
             // dateOfReplyComboBox
             // 
+            this.dateOfReplyComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dateOfReplyComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.dateOfReplyComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateOfReplyComboBox.FormattingEnabled = true;
             this.dateOfReplyComboBox.Location = new System.Drawing.Point(412, 172);
             this.dateOfReplyComboBox.Name = "dateOfReplyComboBox";
             this.dateOfReplyComboBox.Size = new System.Drawing.Size(351, 29);
             this.dateOfReplyComboBox.TabIndex = 13;
+            this.dateOfReplyComboBox.SelectionChangeCommitted += new System.EventHandler(this.onSelectionChange);
             // 
             // dietaryRestrictionsComboBox
             // 
+            this.dietaryRestrictionsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.dietaryRestrictionsComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.dietaryRestrictionsComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dietaryRestrictionsComboBox.FormattingEnabled = true;
             this.dietaryRestrictionsComboBox.Location = new System.Drawing.Point(412, 241);
             this.dietaryRestrictionsComboBox.Name = "dietaryRestrictionsComboBox";
             this.dietaryRestrictionsComboBox.Size = new System.Drawing.Size(351, 29);
             this.dietaryRestrictionsComboBox.TabIndex = 17;
+            this.dietaryRestrictionsComboBox.SelectionChangeCommitted += new System.EventHandler(this.onSelectionChange);
             // 
             // rsvpComboBox
             // 
+            this.rsvpComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.rsvpComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.rsvpComboBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rsvpComboBox.FormattingEnabled = true;
             this.rsvpComboBox.Location = new System.Drawing.Point(412, 34);
             this.rsvpComboBox.Name = "rsvpComboBox";
             this.rsvpComboBox.Size = new System.Drawing.Size(351, 29);
             this.rsvpComboBox.TabIndex = 15;
+            this.rsvpComboBox.SelectionChangeCommitted += new System.EventHandler(this.onSelectionChange);
             // 
             // rsvpLabel
             // 
@@ -613,7 +686,7 @@
             this.upeGuestlistTitleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(2)))), ((int)(((byte)(33)))), ((int)(((byte)(105)))));
             this.upeGuestlistTitleLabel.Location = new System.Drawing.Point(433, 12);
             this.upeGuestlistTitleLabel.Name = "upeGuestlistTitleLabel";
-            this.upeGuestlistTitleLabel.Size = new System.Drawing.Size(325, 32);
+            this.upeGuestlistTitleLabel.Size = new System.Drawing.Size(324, 32);
             this.upeGuestlistTitleLabel.TabIndex = 12;
             this.upeGuestlistTitleLabel.Text = "UPE Guestlist Export Utility";
             // 
@@ -625,16 +698,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(122, 96);
             this.panel1.TabIndex = 13;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(763, 561);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(222, 51);
-            this.button1.TabIndex = 27;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // UpeGuestListExportUtility
             // 

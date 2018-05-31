@@ -15,7 +15,7 @@ namespace UPE_Excel_Formatter
     {
 
         public List<LabelAndBoxObject> returnComboBoxAndLabelList = new List<LabelAndBoxObject>();
-        
+        public List<string> sortList2 = new List<string>();
 
         public HeaderConfirmation(List<LabelAndBoxObject> l)
         {
@@ -24,8 +24,13 @@ namespace UPE_Excel_Formatter
             
         }
 
+        //IN HERE: Generate sort list from comboboxes passed in, on Omit radio change, reload combobox list, reset to 0 if thisindex moves.
+
         private void HeaderConfirmation_Load(object sender, EventArgs e)
         {
+
+            //TODO - graphical: Combo boxes are too short on long header names (bedework)
+
             int i = 0;
             int x = 20;
             bool halved = false;
@@ -62,18 +67,21 @@ namespace UPE_Excel_Formatter
                     label = l.label;
                     label.Location = new Point(x, 30 * i + 10);
                     this.Controls.Add(label);
+                    sortList2.Add(label.Text);
+
 
                     ComboBox combo = new ComboBox();
                     combo = l.comboBox;
                     combo.Location = new Point(x, 30 * i + 40);
                     combo.Enabled = false;
                     combo.Width = 300;
-                    combo.BackColor = BackColor;
+                    combo.BackColor = l.comboBox.BackColor;
                     this.Controls.Add(combo);
 
 
 
                     RadioButton radioI = new RadioButton();
+                    radioI.Name = "radioI";
                     radioI = l.radioInclude;
                     radioI.AutoSize = true;
                     radioI.Location = new System.Drawing.Point(9, 22);
@@ -82,12 +90,14 @@ namespace UPE_Excel_Formatter
                     radioI.TabIndex = 0;
                     radioI.TabStop = true;
                     radioI.UseVisualStyleBackColor = true;
+                    
                     radioI.Checked = true;
 
 
 
 
                     RadioButton radioO = new RadioButton();
+                    radioO.Name = "radioO";
                     radioO = l.radioOmit;
                     radioO.AutoSize = true;
                     radioO.Location = new System.Drawing.Point(63, 22);
@@ -96,13 +106,8 @@ namespace UPE_Excel_Formatter
                     radioO.TabIndex = 0;
                     radioO.TabStop = true;
                     radioO.UseVisualStyleBackColor = true;
-
-
-
-
-
-
-
+                    //TODO: Add event arg here for this.Name, repeat for radioI? link in bookmark bar for instructions
+                    radioO.CheckedChanged += new EventHandler(radioButtons_CheckedChanged);
 
                     GroupBox radioGroup = new GroupBox();
 
@@ -111,17 +116,10 @@ namespace UPE_Excel_Formatter
                     radioGroup.Controls.Add(radioO);
                     radioGroup.Location = new Point(x + 330, 30 * i + 10);
                     radioGroup.Margin = new System.Windows.Forms.Padding(0);
-                    radioGroup.Name = "radioGroup";
+                    radioGroup.Name = l.name;
                     radioGroup.Padding = new System.Windows.Forms.Padding(0);
                     radioGroup.Size = new System.Drawing.Size(86, 45);
                     this.Controls.Add(radioGroup);
-
-
-
-
-
-
-
 
 
                     i = i + 2;
@@ -140,6 +138,38 @@ namespace UPE_Excel_Formatter
 
 
             }
+
+
+
+            firstSortComboBox.BindingContext = new BindingContext();
+            firstSortComboBox.ValueMember = "Key";
+            firstSortComboBox.DisplayMember = "Value";
+            firstSortComboBox.DataSource = new BindingSource(sortList2, null);
+            firstSortComboBox.SelectedIndex = 10;
+
+            secondSortComboBox.BindingContext = new BindingContext();
+            secondSortComboBox.ValueMember = "Key";
+            secondSortComboBox.DisplayMember = "Value";
+            secondSortComboBox.DataSource = new BindingSource(sortList2, null);
+            secondSortComboBox.SelectedIndex = 6;
+        }
+
+        private void radioButtons_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton thisRadio = sender as RadioButton;
+            GroupBox thisgroupBox = thisRadio.Parent as GroupBox;
+
+            if (thisRadio.Name == "RadioO")
+            {
+                sortList2.Remove(thisgroupBox.Name);
+            }
+            else if (thisRadio.Name == "RadioI")
+            {
+                //TODO Populate this, add @ indexof?
+            }
+
+            firstSortComboBox.DataSource = new BindingSource(sortList2, null);
+            secondSortComboBox.DataSource = new BindingSource(sortList2, null);
 
         }
 

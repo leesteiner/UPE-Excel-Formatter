@@ -32,7 +32,12 @@ namespace UPE_Excel_Formatter
         private List<Tuple<int,string>> neededColumns = new List<Tuple<int,string>>();
         private List<LabelAndBoxObject> comboBoxAndLabelList = new List<LabelAndBoxObject>();
 
+
+
         private String filename;
+
+        private int sortColumnOne;
+        private int sortColumnTwo;
 
         
 
@@ -178,10 +183,14 @@ namespace UPE_Excel_Formatter
                     l.comboBox.SelectedItem = headerTitleList[headerTitleList.Count - 1];
 
                     bool stringMatched = false;
+
+
+                    Tuple<byte, byte, byte> matchedColor = new Tuple<byte, byte, byte>(200, 200, 200);
+                    Tuple<byte, byte, byte> unmatchedColor = new Tuple<byte, byte, byte>(255, 110, 110);
+
+                    //Iterate through cells in HeaderTitle List
                     while (stringMatched == false)
                     {
-
-                        //Iterate through cells in HeaderTitle List
                         foreach (CellObject cell in headerTitleList)
                         {
 
@@ -194,7 +203,10 @@ namespace UPE_Excel_Formatter
                                 {
                                     l.comboBox.SelectedItem = cell;
                                     stringMatched = true;
+                                    l.comboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(matchedColor.Item1)))), ((int)(((byte)(matchedColor.Item2)))), ((int)(((byte)(matchedColor.Item3)))));
+                                    break;
                                 }
+
                             }
 
                             //If there is only one string
@@ -204,14 +216,20 @@ namespace UPE_Excel_Formatter
                                 {
                                     l.comboBox.SelectedItem = cell;
                                     stringMatched = true;
+                                    l.comboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(matchedColor.Item1)))), ((int)(((byte)(matchedColor.Item2)))), ((int)(((byte)(matchedColor.Item3)))));
+                                    break;
                                 }
+
                             }
-
                         }
-
-                        //If no match found, exit loop
-                        stringMatched = true;
+                        if (stringMatched) { break; }
+                        //If no match found, change color, exit loop
+                        l.comboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(unmatchedColor.Item1)))), ((int)(((byte)(unmatchedColor.Item2)))), ((int)(((byte)(unmatchedColor.Item3)))));
+                        break;
                     }
+
+
+
                 }
 
 
@@ -324,6 +342,7 @@ namespace UPE_Excel_Formatter
             oXL.Visible = false;
 
 
+            //TODO BUG - below is where the sort issue is. Pass in different data.
             //Set initial sort columns in case of error with Dictionary import
             int sortColumn1 = 10;
             int sortColumn2 = 6;
@@ -791,6 +810,12 @@ namespace UPE_Excel_Formatter
                     System.Windows.Forms.Application.Exit();
                 }
             }
+        }
+
+        private void onSelectionChange(object sender, EventArgs e)
+        {
+            ComboBox cb = (ComboBox)sender;
+            cb.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
         }
     }
 }

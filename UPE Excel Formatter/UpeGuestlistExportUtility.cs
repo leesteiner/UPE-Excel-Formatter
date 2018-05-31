@@ -34,6 +34,8 @@ namespace UPE_Excel_Formatter
 
         private String filename;
 
+        
+
         #endregion
 
 
@@ -146,7 +148,7 @@ namespace UPE_Excel_Formatter
                 }
 
                 //Add last cell to headerTitleList for user option in case match can't be made later
-                headerTitleList.Add(new CellObject(1, totalColumns + 2, "Add this row to sheet."));
+                headerTitleList.Add(new CellObject(1, totalColumns + 2, "No match found."));
 
                 //Cleanup, release ComObjects and Close Workbook
 
@@ -172,7 +174,7 @@ namespace UPE_Excel_Formatter
                 //Iterate through ComboBoxes in Form
                 foreach (LabelAndBoxObject l in comboBoxAndLabelList)
                 {
-                    //Set initial selected item to last in header list, which should be "Add this to spreadsheet"
+                    //Set initial selected item to last in header list, which should be "No match found"
                     l.comboBox.SelectedItem = headerTitleList[headerTitleList.Count - 1];
 
                     bool stringMatched = false;
@@ -228,7 +230,11 @@ namespace UPE_Excel_Formatter
             //Match column numbers and header titles to fields. Add to neededColumns list
             foreach (LabelAndBoxObject l in comboBoxAndLabelList)
             {
-                neededColumns.Add(new Tuple<int, string>(l.comboBox.SelectedIndex + 1, l.name));
+                if (l.radioInclude.Checked == true)
+                {
+                    neededColumns.Add(new Tuple<int, string>(l.comboBox.SelectedIndex + 1, l.name));
+                }
+                
             }
 
             //Open Workbook, set sheet to active sheet, 
@@ -388,7 +394,12 @@ namespace UPE_Excel_Formatter
 
             dynamic bodyRange = oSheet.get_Range(bodyRangeStart, bodyRangeEnd);
 
-            oRng.Sort(oRng.Columns[sortColumn2, Type.Missing], XlSortOrder.xlAscending,
+            //TODO: Make sure sort column is in NeededColumns
+            //TODO: Bug - sorting by incorrect column, step through process with Column #'s
+            //TODO: Graphics - align radio group box, boxes feel a little cramped, add Titles, background color for verified boxes is weird
+            //TODO: Graphics - add more instructional text
+
+            /*oRng.Sort(oRng.Columns[sortColumn2, Type.Missing], XlSortOrder.xlAscending,
                             oRng.Columns[sortColumn1, Type.Missing], Type.Missing, XlSortOrder.xlAscending,
                             Type.Missing, XlSortOrder.xlAscending,
                             Excel.XlYesNoGuess.xlGuess, Type.Missing, Type.Missing,
@@ -397,6 +408,7 @@ namespace UPE_Excel_Formatter
                             XlSortDataOption.xlSortNormal,
                             XlSortDataOption.xlSortNormal
                             );
+                            */
 
             //bodyRange.Sort(bodyRange.Columns[sortColumn2]);
             oRng.Activate();
@@ -555,10 +567,7 @@ namespace UPE_Excel_Formatter
         
         private void continueButton_Click(object sender, EventArgs e)
         {
-            //Open new wait window with WorkerMethod
-            object result = Jacksonsoft.WaitWindow.Show(this.WorkerMethod, "Writing new excel sheet...");
-            //MessageBox.Show(result.ToString());
-            System.Windows.Forms.Application.Exit();
+
 
         }
 
@@ -755,6 +764,33 @@ namespace UPE_Excel_Formatter
         private void fieldMatchPanel_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (var v = new HeaderConfirmation(comboBoxAndLabelList))
+            {
+                this.Visible = false;
+                var result = v.ShowDialog();
+                
+                if (result == DialogResult.OK)
+                {
+                    comboBoxAndLabelList = v.returnComboBoxAndLabelList;
+                    //Open new wait window with WorkerMethod
+                    object res = Jacksonsoft.WaitWindow.Show(this.WorkerMethod, "Writing new excel sheet...");
+                    //MessageBox.Show(result.ToString());
+                    System.Windows.Forms.Application.Exit();
+                }
+                if (result == DialogResult.Cancel)
+                {
+                    System.Windows.Forms.Application.Exit();
+                }
+            }
         }
     }
 }
